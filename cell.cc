@@ -19,6 +19,12 @@ void Cell::setType(const char& type){				//changes the cell's letter
 char Cell::getType(){		//returns the type character
 	return type;
 }
+int Cell::getX(){
+	return x;
+}
+int Cell::getY(){
+	return y;
+}
 	
 std::ostream& operator<<(std::ostream& out, const Cell& c){
 	out << c.type;

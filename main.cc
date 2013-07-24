@@ -3,7 +3,7 @@
 #include "game.h"
 using namespace std;
 
-int main(){
+int main(int argc, char * argv[]){
 	string temp;
 	Game game;
 	string commands[10] = {"clockwise", "counterclockwise", "down", "drop", "left", "leveldown", "levelup", "restart", "right"};

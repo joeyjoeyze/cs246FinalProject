@@ -13,6 +13,8 @@ class Cell{
     void setCoords(const int&, const int&);		//set function for location
 	void setType(const char&);				//changes the cell's letter
 	char getType();								//returns the type character
+	int getX();									//returns x coordinate
+	int getY();									//returns y coordinate
 	friend std::ostream& operator<<(std::ostream&, const Cell&);
 };
 

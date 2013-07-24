@@ -6,7 +6,7 @@
 static const int tetris = 4;
 class Block {
     char type;					//which type of block is it
-	Cell parts[tetris];			//the four parts of a tetric block
+	Cell * parts[tetris];			//the four parts of a tetric block
 	Board * board;				//need this to invoke the moveCell command in board
 								//need some transformation parameters
  public:

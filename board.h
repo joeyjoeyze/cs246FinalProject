@@ -17,9 +17,10 @@ class Board{
 	Board(const int& row, const int& column, const int& xStart, const int& yStart);
 	~Board();
 	bool isEmpty(const int&x , const int&y);	//returns if the location is empty, false if it reaches an edge
-	bool moveCell(const int& xFrom, const int& yFrom, const int& xDest, const int& yDest);
+	void moveCell(const int& xFrom, const int& yFrom, const int& xDest, const int& yDest);
 	//moves the cell, empties the original cell, invoked by the Block class
 	//returns false if the destination cell is occupied
+	Cell * getCell(const int& x, const int&y);
 	void XwindowUpdate();						//updates the window
 	friend std::ostream& operator<<(std::ostream&, const Board&);
 };

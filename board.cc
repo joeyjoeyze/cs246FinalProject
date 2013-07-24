@@ -22,23 +22,24 @@ Board::~Board(){
 	delete window;
 }
 
-bool Board::isEmpty(const int&x , const int&y){	//returns if the location is empty, false if it reaches an edge
+bool Board::isEmpty(const int&x , const int&y){	
+//returns if the location is empty, false if it reaches an edge
 	if(x < 0 || x >= row) return false;
 	if(y < 0 || y >= column) return false;
 	if(gameBoard[x][y].getType() == ' ') return true;
 	return false;
 }
 
-bool Board::moveCell(const int& xFrom, const int& yFrom, const int& xDest, const int& yDest){
+void Board::moveCell(const int& xFrom, const int& yFrom, const int& xDest, const int& yDest){
 //moves the cell, empties the original cell, invoked by the Block class
-	if(xFrom < 0 || xFrom >= row) return false;
-	if(yFrom < 0 || yFrom >= column) return false;
-	if(xDest < 0 || xDest >= row) return false;
-	if(yDest < 0 || yDest >= column) return false;
-	if(gameBoard[xDest][yDest].getType() != ' ') return false;
+//ensures that the 2 set of coordinates is valid
+	if(gameBoard[xDest][yDest].getType() != ' ') return;
 	gameBoard[xDest][yDest].setType(gameBoard[xFrom][yFrom].getType());
-	return true;
 }
+Cell * Board::getCell(const int& x, const int& y){
+	return &(gameBoard[x][y]);
+}
+
 void Board::XwindowUpdate(){}						//updates the window
 
 ostream& operator<<(ostream& out, const Board& b){
