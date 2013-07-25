@@ -37,6 +37,8 @@ void Board::moveCell(const int& xFrom, const int& yFrom, const int& xDest, const
 	gameBoard[xDest][yDest].setType(gameBoard[xFrom][yFrom].getType());
 }
 Cell * Board::getCell(const int& x, const int& y){
+	if (x < 0 || x >= row) return 0;
+	if (y < 0 || y >= column) return 0;
 	return &(gameBoard[x][y]);
 }
 
