@@ -1,6 +1,6 @@
 #include "cell.h"
 
-Cell::Cell():type(' '),x(0),y(0),changed(false){}
+Cell::Cell():type(' '),x(0),y(0),changed(false),block(NULL){}
 /*
 Cell::Cell(const char& type, const int& x, const int& y)
 :type(type),x(x),y(y),changed(false){}
@@ -13,7 +13,15 @@ void Cell::setCoords(const int& x, const int& y){		//set function for location
 }
 
 void Cell::setType(const char& type){				//changes the cell's letter
+	if(type == " "){
+		block->notify();
+		block = NULL;
+	}
 	this->type = type;
+}
+
+void Cell::setBlock(Block * block){
+	this->block = block;
 }
 
 char Cell::getType(){		//returns the type character
