@@ -1,4 +1,5 @@
 #include "cell.h"
+#include "block.h"
 
 Cell::Cell():type(' '),x(0),y(0),changed(false),block(NULL){}
 /*
@@ -13,7 +14,7 @@ void Cell::setCoords(const int& x, const int& y){		//set function for location
 }
 
 void Cell::setType(const char& type){				//changes the cell's letter
-	if(type == " "){
+	if(type == ' '){
 		block->notify();
 		block = NULL;
 	}
