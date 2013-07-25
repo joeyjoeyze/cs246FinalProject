@@ -34,20 +34,20 @@ void Block::rotate(bool direction){
         x = botX - (y - leftY);         //first flip the block diagonally, top-left to bottom-right.
         y = botX - tmp + leftY;
 
-        if (direction == false)         //ccw
-            y = leftY + botX-topX - (y-leftY)     //flip horizontally within the width of the rectangle encaspulating
-        else if (direction)             //cw
-            x = bottomX - (rightY-leftY -(bottomX-x));
+        if (direction == false)                         //ccw
+            y = leftY + botX-topX - (y-leftY)           //flip horizontally
+        else if (direction)                             //cw
+            x = bottomX - (rightY-leftY -(bottomX-x));  //flip vertically
         newParts[i] = board->getCell(x,y);
         if (newParts[i] == 0) return;
     }
 
     for (int i=0; i<tetris; ++i){
-        if (newParts[i]->getType()==' ') continue;
+        if (newParts[i]->getType()==' ') continue;      //if empty
 
         bool cont = false;
         for (int j=0; j<tetris; ++j){
-            if (newParts[i]==parts[j]){
+            if (newParts[i]==parts[j]){                 //if cell in current block
                 cont = true;
                 break;
             }
@@ -77,11 +77,11 @@ void Block::shift(const int& direction){
         int y = parts[i]->getY();
 
         if (direction == 0)
-            newParts[i] = board->getCell(x+1, y);
+            newParts[i] = board->getCell(x+1, y);       //down
         else if (direction == 1)
-            newParts[i] = board->getCell(x, y-1);
+            newParts[i] = board->getCell(x, y-1);       //left
         else if (direction == 2)
-            newParts[i] = board->getCell(x, y+1);
+            newParts[i] = board->getCell(x, y+1);       //right
 
         if (newParts[i]==0) return;
     }
