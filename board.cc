@@ -39,7 +39,12 @@ Cell * Board::getCell(const int& x, const int& y){
 	return &(gameBoard[x][y]);
 }
 
-void Board::XwindowUpdate(){}						//updates the window
+void Board::XwindowUpdate(Cell* c){
+	
+	
+	
+	
+}						//updates the window
 
 ostream& operator<<(ostream& out, const Board& b){
 	for(int i=0;i<b.row;i++){
