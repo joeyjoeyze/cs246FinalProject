@@ -2,9 +2,6 @@
 using namespace std;
 
 
-Board::Board()
-:gameBoard(NULL),window(NULL),xStartPos(0),yStartPos(0),column(0),row(0){}
-
 Board::Board(const int& row, const int& column, const int& xStart, const int& yStart)
 :xStartPos(xStart),yStartPos(yStart),column(column),row(row){
 	gameBoard = new Cell * [row];
