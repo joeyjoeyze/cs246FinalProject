@@ -16,6 +16,7 @@ class Block {
     	void rotate(bool);		//parameter determines clockwise or counterclockwise rotation
 	void shift(const int&);		//paramenter indicates which direction of motion
 	bool canMove();			//determines if the block is able to move at its current location
+	void notify();			//notifies the board
 };
 
 #endif
