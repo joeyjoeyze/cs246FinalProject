@@ -26,7 +26,7 @@ void Cell::setBlock(Block * block){
 	this->block = block;
 }
 
-void Cell::setColour(int c){
+void Cell::setColour(const int& c){
 	colour = c;
 }
 
