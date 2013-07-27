@@ -17,12 +17,17 @@ void Cell::setType(const char& type){				//changes the cell's letter
 	if(type == ' '){
 		block->notify();
 		block = NULL;
+		colour = 1;
 	}
 	this->type = type;
 }
 
 void Cell::setBlock(Block * block){
 	this->block = block;
+}
+
+void Cell::setColour(int c){
+	colour = c;
 }
 
 char Cell::getType(){		//returns the type character
