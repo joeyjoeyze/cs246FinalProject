@@ -2,8 +2,8 @@
 #define __BOARD_H__
 #include "cell.h"
 #include "window.h"
-#include<iostream>
-#include <string>
+#include <iostream>
+#include <sstream>
 
 class Board{
 	Cell ** gameBoard;		//the board object that holds the game matrix
