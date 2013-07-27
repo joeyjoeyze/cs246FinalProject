@@ -20,7 +20,8 @@ class Board{
 	//moves the cell, empties the original cell, invoked by the Block class
 	//returns false if the destination cell is occupied
 	Cell * getCell(const int& x, const int&y);
-	void XwindowUpdate();						//updates the window
+	void XwindowUpdate(Cell* c);					//updates the cell of the window
+	void XwindowUpdate(int level, int score, int highscore);	//updates the text of the window
 	friend std::ostream& operator<<(std::ostream&, const Board&);
 };
 
