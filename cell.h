@@ -7,7 +7,7 @@ class Cell{
     char type;					//which type is the cell in
 	int x;						//x, y coordinates on the matrix
 	int y;
-	int colour;				//colour value for Xwindow
+	int colour=1;				//colour value for Xwindow
 	bool changed;				//was there a change in the cell
 	Block * block;				//pointer to the block where the cell belongs to
  public:
