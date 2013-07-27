@@ -3,6 +3,7 @@
 #include "cell.h"
 #include "window.h"
 #include<iostream>
+#include <string>
 
 class Board{
 	Cell ** gameBoard;		//the board object that holds the game matrix
