@@ -16,6 +16,7 @@ class Cell{
     void setCoords(const int&, const int&);		//set function for location
 	void setType(const char&);					//changes the cell's letter
 	void setBlock(Block *);						//sets the block of cell
+	void setColour(const int&);					//sets the colour of the cell
 	char getType();								//returns the type character
 	int getX();									//returns x coordinate
 	int getY();									//returns y coordinate
