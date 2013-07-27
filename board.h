@@ -13,7 +13,7 @@ class Board{
 	int row;				//row of the matrix
 	int cellSize;			//size of each cell on screen
 	public:
-	Board();
+	Board(const int& row=0, const int& column=0, const int& xStart=0, const int& yStart=0, Xwindow* window=0);
 	Board(const int& row, const int& column, const int& xStart, const int& yStart);
 	~Board();
 	bool isEmpty(const int&x , const int&y);	//returns if the location is empty, false if it reaches an edge
