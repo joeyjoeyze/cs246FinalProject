@@ -65,6 +65,7 @@ void Block::rotate(bool direction){
     for (int i=0; i<tetris; ++i){
         newParts[i]->setType(type);
         newParts[i]->setBlock(this);
+        newParts[i]->setColour(colour);
         board->XwindowUpdate(newParts[i]);
         parts[i] = newParts[i];
     }
@@ -112,6 +113,7 @@ void Block::shift(const int& direction){
     for (int i=0; i<tetris; ++i){
         newParts[i]->setType(type);
         newParts[i]->setBlock(this);
+        newParts[i]->setColour(colour);
         board->XwindowUpdate(newParts[i]);
         parts[i] = newParts[i];
     }
