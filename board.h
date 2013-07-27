@@ -11,7 +11,7 @@ class Board{
 	int yStartPos;
 	int column;				//column of the matrix
 	int row;				//row of the matrix
-	int cellSize;			//size of each cell on screen
+	const int cellSize = 30;		//size of each cell on screen
 	public:
 	Board(const int& row=0, const int& column=0, const int& xStart=0, const int& yStart=0);
 	~Board();
