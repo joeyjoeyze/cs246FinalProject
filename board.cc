@@ -8,7 +8,7 @@ Board::Board(const int& row, const int& column, const int& xStart, const int& yS
 	for(int i=0;i<row;i++){
 		gameBoard[row] = new Cell[column];
 	}
-	window = new Xwindow(row*cellSize, column*cellSize);
+	window = new Xwindow(column*cellSize, 50+(3+row)*cellSize);  //100 for score, 3 for next block
 }
 
 Board::~Board(){
@@ -19,7 +19,7 @@ Board::~Board(){
 	delete window;
 }
 
-bool Board::isEmpty(const int&x , const int&y){	
+bool Board::isEmpty(const int&x , const int&y){
 //returns if the location is empty, false if it reaches an edge
 	if(x < 0 || x >= row) return false;
 	if(y < 0 || y >= column) return false;
@@ -40,11 +40,23 @@ Cell * Board::getCell(const int& x, const int& y){
 }
 
 void Board::XwindowUpdate(Cell* c){
-	
-	
-	
-	
-}						//updates the window
+    window->fillRectangle(c->getY()*cellSize+1, c->getX()*cellSize+51, cellSize-2, cellSize-2, c->getColour());
+}						//window update cell
+
+void Board::XwindowUpdate(int level, int score, int highscore){
+    window->fillRectangle(0, 0, column*cellSize, 50, 1)
+    stringstream ss;
+    ss << "Level:       " << level;
+    window->drawString(50, 10, ss.str(), 0);
+
+    ss.str(string());
+    ss << "Score:       " << score;
+    window->drawString(50, 20, ss.str(), 0);
+
+    ss.str(string());
+    ss << "High score:  " << highscore;
+    window->drawString(50, 30, ss.str(), 0);
+}                       //window update text
 
 ostream& operator<<(ostream& out, const Board& b){
 	for(int i=0;i<b.row;i++){
