@@ -34,6 +34,10 @@ int Cell::getX(){
 int Cell::getY(){
 	return y;
 }
+
+int Cell::getColour(){
+	return colour;
+}
 	
 std::ostream& operator<<(std::ostream& out, const Cell& c){
 	out << c.type;
