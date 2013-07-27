@@ -1,20 +1,50 @@
-#ifndef __GAME_H__
-#define __GAME_H__
-#include "block.h"
-#include "window.h"
-#include "board.h"
+#include "game.h"
+using namespace std;
 
-class Game{
-	int score;				//score of the current game, implement this in player for multiplayer
-	Board * board;			//the board object that holds the game matrix
-	Block block;			//the current block used by the player
-	public:
-	Game();
-	~Game();
-	Block nextBlock();				//randomly generates a block
-	void updateScore(const int&);	//called when a row is cancelled, could implement without parameter
-	bool command(const String&);	//finds and calls the command from main in block, return value determines to spawn a new block or not
-	friend std::ostream& operator<<(std::ostream&, const Game&);
-};
+Game::Game(const int& level=0, bool GUI=true)
+:score(0),level(level),initialLevel(level),highScore(0),inFile(NULL){
+	board = new Board;
 
-#endif
+}
+
+Game::Game(const String& fileName, const int& level=0, bool GUI=true)
+:score(0),level(level),initialLevel(level),highScore(0){
+	inFile->open(fileName.c_str());
+	board = new Board;
+	
+}
+
+Game::~Game(){
+	delete board;
+}
+
+void updateScore(const int& newScore){	//called when a row is cancelled, could implement without parameter
+	if(newScore > highScore) highScore = newScore;
+	score = newScore;
+}
+
+bool Game:command(const string& cmd){	//finds and calls the command from main in block, return value determines to spawn a new block or not
+	
+}
+
+void Game::restart(){
+	score = 0;
+	level = 0;
+	highScore = 0;
+	delete board;
+	board = new Board;
+	
+}
+
+
+
+ostream& operator<<(ostream& out, const Game& g){
+		out << "Level:\t\t" << g.level << endl;
+		out << "Score:\t\t" << g.score << endl;
+		out << "Hi Score:\t" << g.highScore << endl;
+		out << "----------" << endl;
+		out << g.board << endl;
+		out << "----------" << endl;
+		out << g.nextBlock << endl;
+		return out;
+	}
