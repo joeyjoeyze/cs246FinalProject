@@ -17,8 +17,6 @@ RandomBlock::RandomBlock(Board* board, const string& levelZero, const int& level
 }
 
 RandomBlock::~RandomBlock(){
-	for (int i=0; i<totalBlock; ++i)
-		delete origBlocks[i];
 	delete[] origBlocks;
 	delete inFileName;
 	delete[] probBlock;
@@ -28,22 +26,23 @@ RandomBlock::~RandomBlock(){
 void RandomBlock::initBlock(){
 	ifstream in;
 	in.open(blockInfo.c_str());
-	
+
 	in >> totalBlock;
-	origBlocks = new Block[totalBlock];
-	
+	origBlocks = new Block*[totalBlock];
+
 	Cell* parts[4];
-	
+
 	for (int i=0; i<totalBlock; ++i){
-		row = 3;
-		col = 0;
+		int row = 3;
+		int col = 0;
 		int numCells = 0;
 		int colour;
 		in >> colour;
 		in.get();
 		stringstream ss;
+		char c;
 		while (numCells < 4){
-			char c = in.get();
+			c = in.get();
 			ss << c;
 			if (c=='\n'){
 				row++;
@@ -62,11 +61,11 @@ void RandomBlock::initFile(){
 	ifstream in;
 	string temp;
 	int num;
-	
+
 	in.open(fileInfo.c_str());
 	in >> num;
 	totalLevel = num;
-	
+
 	inFileName = new string [num];
 	int pos = 0;
 	while(in >> temp){
@@ -120,8 +119,8 @@ Block * RandomBlock::getBlock(){
 		char temp;
 		inFile >> temp;
 		for(int i=0;i<totalBlock;i++){
-			if(temp == blockType[i]){
-				Block * ret = new Block(temp);  //////////////WILL FIX
+			if(temp == origBlocks[i]->getType()){
+				Block * ret = new Block(*origBlocks[i]);
 				return ret;
 			}
 		}
@@ -130,7 +129,7 @@ Block * RandomBlock::getBlock(){
 		for(int i=0;i<totalBlock;i++){
 			random = random - probBlock[i];
 			if(random <= 0){
-				Block * ret = new Block(blockType[i]);  ///////////////////WILL FIX
+				Block * ret = new Block(*origBlocks[i]);
 				return ret;
 			}
 		}
