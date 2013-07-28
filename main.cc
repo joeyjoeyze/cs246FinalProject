@@ -70,7 +70,7 @@ int main(int argc, char * argv[]){
 		int repeat = 0;							//multiplier
 		string inputCmd = "";					//given command
 		bool badInput = false;					//bad input check
-		bool multi;								//check if multiplier exists
+		bool multi = false;								//check if multiplier exists
 		int cmd = -1;							//location on the command array
 		
 		while(pos < temp.length()){			//parse loop
@@ -78,7 +78,8 @@ int main(int argc, char * argv[]){
 			if(inc >= '0' && inc <= '9'){
 			//check for numeric multiplier
 				if(!multi) multi = true;
-				repeat = repeat * 10 + inc;
+				repeat = repeat * 10 + inc - '0';
+				cerr << "r:" << repeat <<endl;
 			}else if((inc >= 'A' && inc <= 'Z') || (inc >= 'a' && inc <= 'z')){
 			//fetching the actual command
 				inputCmd = inputCmd + inc;
@@ -144,6 +145,7 @@ int main(int argc, char * argv[]){
 		if(cmd == -1) continue;				//do nothing is command not found
 		cerr << "command found" <<endl;
 		cerr << commands[cmd] << endl;
+		cerr << "repeat: " << repeat <<endl;
 		for(int i=0;i<repeat;i++){
 			//call the command at cmd multiple times
 			//or pass the command to game
