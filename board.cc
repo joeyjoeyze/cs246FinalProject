@@ -6,7 +6,7 @@ Board::Board(const int& row, const int& column, const int& xStart, const int& yS
 	gameBoard = new Cell * [row];
 	for(int i=0;i<row;i++){
 	cout << "board row loop:" << i << endl;
-		gameBoard[row] = new Cell[column];
+		gameBoard[i] = new Cell[column];
 	}
 	if(GUI){
 		window = new Xwindow(column*cellSize, 50+(3+row)*cellSize);  //100 for score, 3 for next block
