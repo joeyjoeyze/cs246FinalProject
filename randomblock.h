@@ -17,7 +17,7 @@ class RandomBlock{
 	int level;
 	int totalBlock;
 	int totalLevel;
-	Block * origBlocks;	//original blocks
+	Block ** origBlocks;	//original blocks
 	std::string * inFileName;
 	int * probBlock;
 	void initBlock();
@@ -29,5 +29,7 @@ class RandomBlock{
 	void setLevel(const int&);
 	void levelUp();
 	void levelDown();
-	Block * getBlock();	
-}
+	Block * getBlock();
+};
+
+#endif
