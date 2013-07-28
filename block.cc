@@ -1,7 +1,9 @@
 #include "block.h"
 
-Block::Block(char type, int colour, Cell *parts[]):
-  type(type), colour(colour), alive(4){
+using namespace std;
+
+Block::Block(char type, int colour, string str, Cell* parts[]):
+  type(type), colour(colour), alive(4), output(str){
     for (int i=0; i<tetris; ++i)
         this->parts[i] = parts[i];
 }
