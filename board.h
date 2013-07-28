@@ -13,6 +13,7 @@ class Board{
 	int yStartPos;
 	int column;									//column of the matrix
 	int row;									//row of the matrix
+	bool GUI;
 	public:
 	Board(const int& row=0, const int& column=0, const int& xStart=3, const int& yStart=0, bool GUI=true);
 	~Board();
