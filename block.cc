@@ -135,3 +135,8 @@ char Block::getType(){
 void Block::notify() {
     alive--;
 }
+
+ostream& operator<<(ostream& out, const Block& b){
+	out << b.output;
+	return out;
+}

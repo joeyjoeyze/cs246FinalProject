@@ -9,8 +9,9 @@ int main(int argc, char * argv[]){
 	Game game(1,false);
 	//commands array
 	cout << "game sucess" <<endl;
+	cout << "\033[2J\033[1;1H";
+		cout << game;
 	while(cin>>temp){						//read loop
-	
 	char inc = '\0';						//temporary character
 	unsigned int pos = 0;					//position
 	int repeat = 0;							//multiplier

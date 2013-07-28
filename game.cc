@@ -9,8 +9,9 @@ Game::Game(const int& level, bool GUI)
 :score(0),level(level),highScore(0),initLevel(level),GUI(GUI){
 	blocks = new vector<Block *>;
 	board = new Board(18,10,3,0,GUI);
-	cout << "between board and randblock" <<endl;
 	randBlock = new RandomBlock(board, level);
+	blocks->push_back(randBlock->getBlock());
+	blocks->push_back(randBlock->getBlock());
 }
 
 Game::Game(const string& fileName, const int& level, bool GUI)
@@ -18,6 +19,8 @@ Game::Game(const string& fileName, const int& level, bool GUI)
 	blocks = new vector<Block *>;
 	board = new Board(18,10,3,0,GUI);
 	randBlock = new RandomBlock(board, fileName,level);
+	blocks->push_back(randBlock->getBlock());
+	blocks->push_back(randBlock->getBlock());
 }
 
 Game::~Game(){
@@ -82,9 +85,9 @@ ostream& operator<<(ostream& out, const Game& g){
 	out << "Score:" << setw(spacing + 3) << g.score << endl;
 	out << "Hi Score:" << setw(spacing) << g.highScore << endl;
 	out << "----------" << endl;
-	out << g.board << endl;
+	out << *(g.board) << endl;
 	out << "----------" << endl;
 	out << "Next:" << endl;
-	out << g.blocks->at((g.blocks->size() - 1)) << endl;
+	out << *(g.blocks->at((g.blocks->size() - 1))) << endl;
 	return out;
 }
