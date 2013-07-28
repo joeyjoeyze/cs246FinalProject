@@ -13,7 +13,7 @@ class Block {
  public:
 	Block::Block(Board* board=0, char type=0, int colour=0, Cell *parts[]=0); //non-virtual ctor & dtor
 	~Block();
-    	void rotate(Board* board, bool);	//parameter determines clockwise or counterclockwise rotation
+    	void rotate(Board* board, const bool&);	//parameter determines clockwise or counterclockwise rotation
 	void shift(Board* board, const int&);	//paramenter indicates which direction of motion
 	void notify();				//notifies the board
 };
