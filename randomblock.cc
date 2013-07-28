@@ -29,7 +29,7 @@ void RandomBlock::initBlock(){
 
 	in >> totalBlock;
 	origBlocks = new Block*[totalBlock];
-
+	probBlock = new int [totalBlock];
 	Cell* parts[4];
 
 	for (int i=0; i<totalBlock; ++i){

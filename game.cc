@@ -9,6 +9,7 @@ Game::Game(const int& level, bool GUI)
 :score(0),level(level),highScore(0),initLevel(level),GUI(GUI){
 	blocks = new vector<Block *>;
 	board = new Board(18,10,3,0,GUI);
+	cout << "between board and randblock" <<endl;
 	randBlock = new RandomBlock(board, level);
 }
 

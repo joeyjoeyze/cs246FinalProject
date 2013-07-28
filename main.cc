@@ -8,6 +8,7 @@ int main(int argc, char * argv[]){
 	string commands[10] = {"clockwise", "counterclockwise", "down", "drop", "left", "leveldown", "levelup", "restart", "right"};
 	Game game(1,false);
 	//commands array
+	cout << "game sucess" <<endl;
 	while(cin>>temp){						//read loop
 	
 	char inc = '\0';						//temporary character
@@ -84,7 +85,8 @@ int main(int argc, char * argv[]){
 			cout << "\033[2J\033[1;1H";
 			cout << game;					//updates the gameboard on screen for each command
 		}
-
+		cout << "\033[2J\033[1;1H";
+		cout << game;	
 		
 	}
 }
