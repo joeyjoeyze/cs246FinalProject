@@ -1,6 +1,7 @@
 #ifndef __BLOCK_H__
 #define __BLOCK_H__
 #include "cell.h"
+#include "board.h"
 #include <string>
 
 static const int tetris = 4;
@@ -12,10 +13,12 @@ class Block {
 	std::string output;
 	void initCells();
 public:
-	Block(const char& type=0, const int& colour=0, const std::string& str="", Cell* parts[]);
+	Block(const char& type=0, const int& colour=0, const std::string& str="", Cell* parts[]=0);
+	Block(const Block& other);
 	~Block();
     void rotate(Board* board, const bool&);	//parameter determines clockwise or counterclockwise rotation
 	void shift(Board* board, const int&);	//paramenter indicates which direction of motion
+	char getType();                 //returns type
 	void notify();				//notifies the board
 	friend std::ostream& operator<<(std::ostream&, const Block&);
 };
