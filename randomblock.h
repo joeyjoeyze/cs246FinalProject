@@ -1,24 +1,31 @@
 #ifndef __RANDBLOCK_H_
 #define __RANDBLOCK_H_
-#include "PRNG.h"
 #include "block.h"
+#include<cstdlib>
 #include<iostream>
 #include<fstream>
+#include<string>
+#include<sstream>
 
-static const int totalBlock = 7;
-static const int totalLevel = 4;
-class RandomBlock(){
+static const std::string blockInfo = "blocks.txt";
+static const std::string fileInfo = "levels.txt";
+class RandomBlock{
 	std::ifstream inFile;
 	int sum;
 	int level;
-	int probBlock[totalBlock];
-	char blockType[totalBlock] = {'I', 'J', 'L', 'O', 'S', 'Z', 'T'};
-	String inFileName[totalBlock] = {"sequence.txt", "level1.txt", "level2.txt", "level3.txt"};
+	int totalBlock;
+	int totalLevel;
+	char * blockType;
+	std::string * inFileName;
+	int * probBlock;
+	void initBlock();
+	void initFile();
 	public:
-	RandomBlock(const int&);
-	RandomBlock(const string&, const int&);
+	RandomBlock(const int& level=0);
+	RandomBlock(const std::string& levelZero, const int& level=0);
+	~RandomBlock();
 	void setLevel(const int&);
 	void levelUp();
 	void levelDown();
-	Block * getBlock();
+	Block * getBlock();	
 }

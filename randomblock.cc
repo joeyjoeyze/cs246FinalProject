@@ -1,18 +1,64 @@
 #include "randomblock.h"
+using namespace std;
 
-RandomBlock::RandomBlock(const int& level=0)
-:inFile(NULL),sum(0),probBlock(0){
+RandomBlock::RandomBlock(const int& level)
+:sum(0),level(level),totalBlock(0),totalLevel(0){
+	initBlock();
+	initFile();
 	setLevel(level);
 }
 
-RandomBlock::RandomBlock(const string& levelZero, const int& level=0)
-:inFile(NULL),sum(0),probBlock(0){
+RandomBlock::RandomBlock(const string& levelZero, const int& level)
+:sum(0),level(level),totalBlock(0),totalLevel(0){
+	initBlock();
+	initFile();
 	inFileName[0] = levelZero;
 	setLevel(level);
 }
 
 RandomBlock::~RandomBlock(){
+	delete blockType;
+	delete inFileName;
+	delete probBlock;
 	if(level == 0) inFile.close();
+}
+
+void RandomBlock::initBlock(){
+	ifstream in;
+	char temp  = '\0';
+	int num;
+	
+	in.open(blockInfo.c_str());
+	in >> num;
+	totalBlock = num;
+
+	blockType = new char [totalBlock];
+	int pos = 0;
+	char prev = temp;
+	while(in >> temp){
+		if(temp >= 'A' && temp <= 'Z' && temp != prev){
+			probBlock[pos] = temp;
+			pos++;
+		}
+		prev = temp;
+	}
+}
+
+void RandomBlock::initFile(){
+	ifstream in;
+	string temp;
+	int num;
+	
+	in.open(fileInfo.c_str());
+	in >> num;
+	totalLevel = num;
+	
+	inFileName = new string [num];
+	int pos = 0;
+	while(in >> temp){
+		inFileName[pos] = temp;
+		pos++;
+	}
 }
 
 void RandomBlock::setLevel(const int& level){
@@ -22,16 +68,14 @@ void RandomBlock::setLevel(const int& level){
 	}else{
 		inFile.open(inFileName[level].c_str());
 		string temp;
-		delete probBlock;
-		probBlock = new int[totalBlock];
 		stringstream ss;
 		int total = 0;
 		for(int i=0;i<totalBlock;i++){
 			ss.clear();
 			inFile >> temp;
 			ss << temp;
-			ss >> totalBlock[i];
-			total = total + totalBlock[i];
+			ss >> probBlock[i];
+			total = total + probBlock[i];
 		}
 		sum = total;
 		inFile.close();
@@ -57,7 +101,7 @@ Block * RandomBlock::getBlock(){
 	if(level == 0){
 		if(inFile.eof()){
 			inFile.close();
-			inFile.open(inFilename[0]);
+			inFile.open(inFileName[0].c_str());
 		}
 		char temp;
 		inFile >> temp;
