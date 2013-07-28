@@ -14,12 +14,41 @@ Block::Block(const Block& other):
     for (int i=0; i<tetris; ++i)
         parts[i] = other.parts[i];
 }
+Block Block::operator=(const Block& other){
+	Block temp = other;
+	swap(temp);
+	return *this;
+}
+void Block::swap(Block& other){
+	char typetmp = type;
+	type = other.type;
+	other.type = typetmp;
+	
+	Cell * partstmp;
+	for(int i=0;i<tetris;i++){
+		partstmp = parts[i];
+		parts[i] = other.parts[i];
+		other.parts[i] = partstmp;
+	}	
+	
+	int colourtmp = colour;
+	colour = other.colour;
+	other.colour = colourtmp;
+	
+	int alivetmp = alive;
+	alive = other.alive;
+	other.alive = alivetmp;
+	
+	string outputtmp = output;
+	output = other.output;
+	other.output = outputtmp;
+}
 
 Block::~Block(){
     delete[] parts;
 }
 
-void Block::activate(){
+void Block::activate(Board * board){
     for (int i=0; i<tetris; ++i){
         parts[i]->setType(type);
         parts[i]->setBlock(this);

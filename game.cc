@@ -8,16 +8,17 @@ using namespace std;
 Game::Game(const int& level, const int& seed, bool GUI)
 :score(0),level(level),highScore(0),initLevel(level),GUI(GUI){
 	blocks = new vector<Block *>;
-	board = new Board(18,10,3,0,GUI);
+	board = new Board(15,10,3,0,GUI);
 	randBlock = new RandomBlock(board, level, seed);
 	blocks->push_back(randBlock->getBlock());
+	(blocks->at(0))->activate(board);
 	blocks->push_back(randBlock->getBlock());
 }
 
 Game::Game(const string& fileName, const int& level, const int& seed, bool GUI)
 :score(0),level(level),highScore(0),initLevel(level),GUI(GUI){
 	blocks = new vector<Block *>;
-	board = new Board(18,10,3,0,GUI);
+	board = new Board(15,10,3,0,GUI);
 	randBlock = new RandomBlock(board, fileName, level, seed);
 	blocks->push_back(randBlock->getBlock());
 	blocks->push_back(randBlock->getBlock());
@@ -57,6 +58,7 @@ void Game::command(const string& cmd){	//finds and calls the command from main i
 			currentBlock->shift(board, 0);
 		}
 		blocks->push_back(randBlock->getBlock());
+		(blocks->at((blocks->size() - 2)))->activate(board);
 	}else if(cmd == "levelup"){
 		randBlock->levelUp();
 	}else if(cmd == "leveldown"){

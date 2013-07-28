@@ -19,6 +19,9 @@ RandomBlock::RandomBlock(Board* board, const string& levelZero, const int& level
 }
 
 RandomBlock::~RandomBlock(){
+	for(int i=0;i<totalBlock;i++){
+		delete origBlocks[i];
+	}
 	delete[] origBlocks;
 	delete inFileName;
 	delete[] probBlock;
@@ -113,7 +116,6 @@ void RandomBlock::levelDown(){
 }
 
 Block * RandomBlock::getBlock(){
-	Block * ret;
 	if(level == 0){
 		if(inFile.eof()){
 			inFile.close();
@@ -123,8 +125,7 @@ Block * RandomBlock::getBlock(){
 		inFile >> temp;
 		for(int i=0;i<totalBlock;i++){
 			if(temp == origBlocks[i]->getType()){
-				ret = new Block(*origBlocks[i]);
-				ret->activate();
+				Block * ret = new Block(*origBlocks[i]);
 				return ret;
 			}
 		}	
@@ -133,8 +134,7 @@ Block * RandomBlock::getBlock(){
 		for(int i=0;i<totalBlock;i++){
 			random = random - probBlock[i];
 			if(random <= 0){
-				ret = new Block(*origBlocks[i]);
-				ret->activate();
+				Block * ret = new Block(*origBlocks[i]);
 				return ret;
 			}
 		}

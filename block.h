@@ -11,12 +11,14 @@ class Block {
 	int colour;				//colour of the blocks
 	int alive;				//count of number of alive cells; starts at 4
 	std::string output;
+	void swap(Block&);
 	void initCells();
 public:
 	Block(const char& type=0, const int& colour=0, const std::string& str="", Cell* parts[]=0);
 	Block(const Block& other);
+	Block operator=(const Block&);
 	~Block();
-	void activate();			//notifies the cells it contains of the block's existence
+	void activate(Board *);			//notifies the cells it contains of the block's existence
     void rotate(Board* board, const bool&);	//parameter determines clockwise or counterclockwise rotation
 	void shift(Board* board, const int&);	//paramenter indicates which direction of motion
 	char getType();                 //returns type
