@@ -1,7 +1,7 @@
 #include "Block.h"
 
-Block::Block(Board* board, char type, Cell *parts[]):
-  board(board), type(type), alive(4){
+Block::Block(char type, int colour, Cell *parts[]):
+  type(type), colour(colour), alive(4){
     for (int i=0; i<tetris; ++i)
         this->parts[i] = parts[i];
 }
@@ -9,7 +9,7 @@ Block::~Block(){
     delete[] parts;
 }
 
-void Block::rotate(bool direction){
+void Block::rotate(Board* board, const bool& direction){
     //0 for ccw
     //1 for cw
     int topX=99;
@@ -70,7 +70,7 @@ void Block::rotate(bool direction){
         parts[i] = newParts[i];
     }
 }
-void Block::shift(const int& direction){
+void Block::shift(Board* board, const int& direction){
     //0 down
     //1 left
     //2 right
@@ -121,7 +121,4 @@ void Block::shift(const int& direction){
 
 void Block::notify() {
     alive--;
-    if (alive==0){
-
-    }
 }
