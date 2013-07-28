@@ -1,15 +1,15 @@
 #include "randomblock.h"
 using namespace std;
 
-RandomBlock::RandomBlock(const int& level)
-:sum(0),level(level),totalBlock(0),totalLevel(0){
+RandomBlock::RandomBlock(Board* board, const int& level)
+:board(board), sum(0),level(level),totalBlock(0),totalLevel(0){
 	initBlock();
 	initFile();
 	setLevel(level);
 }
 
-RandomBlock::RandomBlock(const string& levelZero, const int& level)
-:sum(0),level(level),totalBlock(0),totalLevel(0){
+RandomBlock::RandomBlock(Board* board, const string& levelZero, const int& level)
+:board(board), sum(0),level(level),totalBlock(0),totalLevel(0){
 	initBlock();
 	initFile();
 	inFileName[0] = levelZero;
@@ -17,30 +17,44 @@ RandomBlock::RandomBlock(const string& levelZero, const int& level)
 }
 
 RandomBlock::~RandomBlock(){
-	delete blockType;
+	for (int i=0; i<totalBlock; ++i)
+		delete origBlocks[i];
+	delete[] origBlocks;
 	delete inFileName;
-	delete probBlock;
+	delete[] probBlock;
 	if(level == 0) inFile.close();
 }
 
 void RandomBlock::initBlock(){
 	ifstream in;
-	char temp  = '\0';
-	int num;
-	
 	in.open(blockInfo.c_str());
-	in >> num;
-	totalBlock = num;
-
-	blockType = new char [totalBlock];
-	int pos = 0;
-	char prev = temp;
-	while(in >> temp){
-		if(temp >= 'A' && temp <= 'Z' && temp != prev){
-			probBlock[pos] = temp;
-			pos++;
+	
+	in >> totalBlock;
+	origBlocks = new Block[totalBlock];
+	
+	Cell* parts[4];
+	
+	for (int i=0; i<totalBlock; ++i){
+		row = 3;
+		col = 0;
+		int numCells = 0;
+		int colour;
+		in >> colour;
+		in.get();
+		stringstream ss;
+		while (numCells < 4){
+			char c = in.get();
+			ss << c;
+			if (c=='\n'){
+				row++;
+				col = -1;
+			} else if (c!=' '){
+				parts[numCells] = board->getCell(row, col);
+				numCells++;
+			}
+			col++;
 		}
-		prev = temp;
+		origBlocks[i] = new Block(c, colour, ss.str(), parts);
 	}
 }
 
@@ -107,7 +121,7 @@ Block * RandomBlock::getBlock(){
 		inFile >> temp;
 		for(int i=0;i<totalBlock;i++){
 			if(temp == blockType[i]){
-				Block * ret = new Block(temp);
+				Block * ret = new Block(temp);  //////////////WILL FIX
 				return ret;
 			}
 		}
@@ -116,7 +130,7 @@ Block * RandomBlock::getBlock(){
 		for(int i=0;i<totalBlock;i++){
 			random = random - probBlock[i];
 			if(random <= 0){
-				Block * ret = new Block(blockType[i]);
+				Block * ret = new Block(blockType[i]);  ///////////////////WILL FIX
 				return ret;
 			}
 		}
