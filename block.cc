@@ -23,22 +23,22 @@ void Block::swap(Block& other){
 	char typetmp = type;
 	type = other.type;
 	other.type = typetmp;
-	
+
 	Cell * partstmp;
 	for(int i=0;i<tetris;i++){
 		partstmp = parts[i];
 		parts[i] = other.parts[i];
 		other.parts[i] = partstmp;
-	}	
-	
+	}
+
 	int colourtmp = colour;
 	colour = other.colour;
 	other.colour = colourtmp;
-	
+
 	int alivetmp = alive;
 	alive = other.alive;
 	other.alive = alivetmp;
-	
+
 	string outputtmp = output;
 	output = other.output;
 	other.output = outputtmp;
@@ -169,6 +169,14 @@ void Block::shift(Board* board, const int& direction){
 
 char Block::getType(){
     return type;
+}
+
+string Block::getOutput(){
+    return output;
+}
+
+int Block::getColour(){
+    return colour;
 }
 
 void Block::notify() {
