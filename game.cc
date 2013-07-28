@@ -1,14 +1,18 @@
 #include "game.h"
+
+#include "block.h"
+#include "board.h"
+#include "randomblock.h"
 using namespace std;
 
-Game::Game(const int& level=0, bool GUI=true)
-:score(0),level(level),highScore(0),initialLevel(level){
+Game::Game(const int& level, bool GUI)
+:score(0),level(level),highScore(0),initialLevel(level),GUI(GUI){
 	board = new Board;
 	randBlock = new RandomBlock(level);
 }
 
-Game::Game(const String& fileName, const int& level=0, bool GUI=true)
-:score(0),level(level),highScore(0),initialLevel(level){
+Game::Game(const String& fileName, const int& level, bool GUI)
+:score(0),level(level),highScore(0),initialLevel(level),GUI(GUI){
 	board = new Board;
 	randBlock = new RandomBlock(fileName,level);
 }
@@ -32,18 +36,18 @@ void updateScore(const int& newScore){	//called when a row is cancelled, could i
 bool Game:command(const string& cmd){	//finds and calls the command from main in block, return value determines to spawn a new block or not
 	Block * currentBlock = blocks[(blocks.size() - 2)];
 	if(cmd == "left"){
-		currentBlock.shift(board, 1);
+		currentBlock->shift(board, 1);
 	}else if(cmd == "right"){
-		currentBlock.shift(board, 2);
+		currentBlock->shift(board, 2);
 	}else if(cmd == "down"){
-		currentBlock.shift(board, 0);
+		currentBlock->shift(board, 0);
 	}else if(cmd == "clockwise"){
-		currentBlock.rotate(board, 1);
+		currentBlock->rotate(board, 1);
 	}else if(cmd == "counterclockwise"){
-		currentBlock.rotate(board, 0);
+		currentBlock->rotate(board, 0);
 	}else if(cmd == "drop"){
 		for(int i=0;i<15;i++){
-			currentBlock.shift(board, 0);
+			currentBlock->shift(board, 0);
 		}
 		blocks.push_back(newBlock());
 	}else if(cmd == "levelup"){

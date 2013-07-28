@@ -12,7 +12,7 @@ class Block {
 	std::string output;
 	void initCells();
 public:
-	Block(const char& type=0, const int& colour=0, const std::string& str=0, Cell* parts[]=0);
+	Block(const char& type=0, const int& colour=0, const std::string& str="", Cell* parts[]);
 	~Block();
     void rotate(Board* board, const bool&);	//parameter determines clockwise or counterclockwise rotation
 	void shift(Board* board, const int&);	//paramenter indicates which direction of motion

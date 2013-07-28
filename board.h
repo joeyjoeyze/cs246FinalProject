@@ -14,7 +14,7 @@ class Board{
 	int column;									//column of the matrix
 	int row;									//row of the matrix
 	public:
-	Board(const int& row=0, const int& column=0, const int& xStart=0, const int& yStart=0);
+	Board(const int& row=0, const int& column=0, const int& xStart=3, const int& yStart=0, bool GUI=true);
 	~Board();
 	bool isEmpty(const int&x , const int&y);	//returns if the location is empty, false if it reaches an edge
 	void moveCell(const int& xFrom, const int& yFrom, const int& xDest, const int& yDest);

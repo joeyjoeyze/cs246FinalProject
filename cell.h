@@ -1,8 +1,9 @@
 #ifndef __CELL_H__
 #define __CELL_H__
-#include "block.h"
+
 #include<iostream>
 
+class Block;
 class Cell{
     char type;					//which type is the cell in
 	int x;						//x, y coordinates on the matrix

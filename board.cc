@@ -1,13 +1,17 @@
 #include "board.h"
 using namespace std;
 
-Board::Board(const int& row, const int& column, const int& xStart, const int& yStart)
-:xStartPos(xStart),yStartPos(yStart),column(column),row(row){
+Board::Board(const int& row, const int& column, const int& xStart, const int& yStart, bool GUI)
+:xStartPos(xStart),yStartPos(yStart),column(column),row(row),GUI(GUI){
 	gameBoard = new Cell * [row];
 	for(int i=0;i<row;i++){
 		gameBoard[row] = new Cell[column];
 	}
-	window = new Xwindow(column*cellSize, 50+(3+row)*cellSize);  //100 for score, 3 for next block
+	if(GUI){
+		window = new Xwindow(column*cellSize, 50+(3+row)*cellSize);  //100 for score, 3 for next block
+	}else {
+		window = NULL;
+	}
 }
 
 Board::~Board(){
@@ -32,6 +36,7 @@ void Board::moveCell(const int& xFrom, const int& yFrom, const int& xDest, const
 	if(gameBoard[xDest][yDest].getType() != ' ') return;
 	gameBoard[xDest][yDest].setType(gameBoard[xFrom][yFrom].getType());
 }
+
 Cell * Board::getCell(const int& x, const int& y){
 	if (x < 0 || x >= row) return 0;
 	if (y < 0 || y >= column) return 0;
