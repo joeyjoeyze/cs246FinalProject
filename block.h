@@ -16,6 +16,7 @@ class Block {
     	void rotate(Board* board, const bool&);	//parameter determines clockwise or counterclockwise rotation
 	void shift(Board* board, const int&);	//paramenter indicates which direction of motion
 	void notify();				//notifies the board
+	friend std::ostream& operator<<(std::ostream&, const Block&);
 };
 
 #endif
