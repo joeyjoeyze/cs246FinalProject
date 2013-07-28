@@ -22,7 +22,7 @@ class Game{
 	Game(const std::string& fileName, const int& level=0, bool GUI=true);
 	~Game();
 	void updateScore(const int&);		//called when a row is cancelled, could implement without parameter
-	bool command(const std::string&);	//finds and calls the command from main in block, return value determines to spawn a new block or not
+	void command(const std::string&);	//finds and calls the command from main in block, return value determines to spawn a new block or not
 	friend std::ostream& operator<<(std::ostream&, const Game&);
 };
 

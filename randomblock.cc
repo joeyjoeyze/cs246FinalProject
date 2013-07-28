@@ -111,6 +111,7 @@ void RandomBlock::levelDown(){
 }
 
 Block * RandomBlock::getBlock(){
+	Block * ret;
 	if(level == 0){
 		if(inFile.eof()){
 			inFile.close();
@@ -120,18 +121,19 @@ Block * RandomBlock::getBlock(){
 		inFile >> temp;
 		for(int i=0;i<totalBlock;i++){
 			if(temp == origBlocks[i]->getType()){
-				Block * ret = new Block(*origBlocks[i]);
+				ret = new Block(*origBlocks[i]);
 				return ret;
 			}
-		}
+		}	
 	}else{
 		int random = (rand() % (sum - 1)) + 1;
 		for(int i=0;i<totalBlock;i++){
 			random = random - probBlock[i];
 			if(random <= 0){
-				Block * ret = new Block(*origBlocks[i]);
+				ret = new Block(*origBlocks[i]);
 				return ret;
 			}
 		}
 	}
+	return 0;
 }

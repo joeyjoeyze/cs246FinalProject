@@ -33,7 +33,7 @@ void Game::updateScore(const int& newScore){	//called when a row is cancelled, c
 	score = newScore;
 }
 
-bool Game::command(const string& cmd){	//finds and calls the command from main in block, return value determines to spawn a new block or not
+void Game::command(const string& cmd){	//finds and calls the command from main in block, return value determines to spawn a new block or not
 	Block * currentBlock = blocks[(blocks.size() - 2)];
 	if(cmd == "left"){
 		currentBlock->shift(board, 1);
