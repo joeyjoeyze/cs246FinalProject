@@ -1,11 +1,7 @@
 #include "cell.h"
-#include "block.h"
 
-Cell::Cell():type(' '),x(0),y(0),changed(false),block(NULL){}
-/*
-Cell::Cell(const char& type, const int& x, const int& y)
-:type(type),x(x),y(y),changed(false){}
-*/
+Cell::Cell():type(' '),x(0),y(0),colour(1),changed(false),block(NULL){}
+
 Cell::~Cell(){}
 
 void Cell::setCoords(const int& x, const int& y){		//set function for location

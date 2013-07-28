@@ -1,7 +1,6 @@
 #include "board.h"
 using namespace std;
 
-
 Board::Board(const int& row, const int& column, const int& xStart, const int& yStart)
 :xStartPos(xStart),yStartPos(yStart),column(column),row(row){
 	gameBoard = new Cell * [row];
@@ -44,7 +43,7 @@ void Board::XwindowUpdate(Cell* c){
 }						//window update cell
 
 void Board::XwindowUpdate(int level, int score, int highscore){
-    window->fillRectangle(0, 0, column*cellSize, 50, 1)
+    window->fillRectangle(0, 0, column*cellSize, 50, 1);
     stringstream ss;
     ss << "Level:       " << level;
     window->drawString(50, 10, ss.str(), 0);
