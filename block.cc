@@ -19,6 +19,15 @@ Block::~Block(){
     delete[] parts;
 }
 
+void Block::activate(){
+    for (int i=0; i<tetris; ++i){
+        parts[i]->setType(type);
+        parts[i]->setBlock(this);
+        parts[i]->setColour(colour);
+        board->XwindowUpdate(parts[i]);
+    }
+}
+
 void Block::rotate(Board* board, const bool& direction){
     //0 for ccw
     //1 for cw
