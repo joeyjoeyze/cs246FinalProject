@@ -1,15 +1,17 @@
 #include "randomblock.h"
 using namespace std;
 
-RandomBlock::RandomBlock(Board* board, const int& level)
+RandomBlock::RandomBlock(Board* board, const int& level, const int& seed)
 :board(board), sum(0),level(level),totalBlock(0),totalLevel(0){
+	srand(seed);
 	initBlock();
 	initFile();
 	setLevel(level);
 }
 
-RandomBlock::RandomBlock(Board* board, const string& levelZero, const int& level)
+RandomBlock::RandomBlock(Board* board, const string& levelZero, const int& level, const int& seed)
 :board(board), sum(0),level(level),totalBlock(0),totalLevel(0){
+	srand(seed);
 	initBlock();
 	initFile();
 	inFileName[0] = levelZero;

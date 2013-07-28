@@ -1,24 +1,74 @@
 #include<iostream>
 #include<string>
+#include<sstream>
+#include<cstring>
 #include "game.h"
 using namespace std;
 
 int main(int argc, char * argv[]){
+	Game * game;
+	int pos = 0;
+	bool GUI = true;
+	int seed = 0;
+	string fileName = "";
+	int startLevel = 0;
+	
+	
+	while(pos < argc){
+	//command line argument interpreter
+		string temp = argv[pos];
+		if(strcmp(argv[pos], "-text") == 0){
+			GUI = false;
+		}else if(strcmp(argv[pos], "-seed") == 0){
+			if(pos + 1 < argc){
+				pos++;
+				stringstream ss(argv[pos]);
+				ss >> seed;
+			}else {
+				cerr << "BAD ARGUMENTS" << endl;
+			}
+		}else if(strcmp(argv[pos], "-scriptfile") == 0){
+			if(pos + 1 < argc){
+				pos++;
+				stringstream ss(argv[pos]);
+				ss >> fileName;
+			}else {
+				cerr << "BAD ARGUMENTS" << endl;
+			}
+		}else if(strcmp(argv[pos], "-startlevel") == 0){
+			if(pos + 1 < argc){
+				pos++;
+				stringstream ss(argv[pos]);
+				ss >> startLevel;
+			}else {
+				cerr << "BAD ARGUMENTS" << endl;
+			}
+		}else{
+			cerr << "BAD ARGUMENTS" << endl;
+		}
+		pos++;
+	}
+	if(fileName == ""){
+		game = new Game (startLevel, seed, GUI);
+	}else {
+		game = new Game (fileName, startLevel, seed, GUI);
+	}
+	
+	
 	string temp;
 	string commands[10] = {"clockwise", "counterclockwise", "down", "drop", "left", "leveldown", "levelup", "restart", "right"};
-	Game game(1,false);
 	//commands array
-	cout << "game sucess" <<endl;
+	cerr << "game sucess" <<endl;
 	cout << "\033[2J\033[1;1H";
-		cout << game;
+	cout << *game;
 	while(cin>>temp){						//read loop
-	char inc = '\0';						//temporary character
-	unsigned int pos = 0;					//position
-	int repeat = 0;							//multiplier
-	string inputCmd = "";					//given command
-	bool badInput = false;					//bad input check
-	int cmd = -1;							//location on the command array
-	
+		char inc = '\0';						//temporary character
+		unsigned int pos = 0;					//position
+		int repeat = 0;							//multiplier
+		string inputCmd = "";					//given command
+		bool badInput = false;					//bad input check
+		int cmd = -1;							//location on the command array
+		
 		while(pos < temp.length()){			//parse loop
 			inc = temp.at(pos);
 			if(inc >= '0' && inc <= '9'){
@@ -50,8 +100,9 @@ int main(int argc, char * argv[]){
 					cerr << "bad input" << endl;
 					badInput = true;
 				}
+				pos++;
 			}
-			pos++;							//post incrementer
+										//post incrementer
 		}
 		
 		//abort conditions
@@ -63,7 +114,7 @@ int main(int argc, char * argv[]){
 		
 		if(inputCmd == "restart"){
 		//edge case where multiplier does not matter
-			game.command("restart");
+			game->command("restart");
 			continue;
 		}
 		
@@ -82,13 +133,14 @@ int main(int argc, char * argv[]){
 		for(int i=0;i<repeat;i++){
 			//call the command at cmd multiple times
 			//or pass the command to game
-			game.command(commands[cmd]);
+			game->command(commands[cmd]);
 			cout << "\033[2J\033[1;1H";
-			cout << game;					//updates the gameboard on screen for each command
+			cout << *game;					//updates the gameboard on screen for each command
 		}
 		cout << "\033[2J\033[1;1H";
-		cout << game;	
+		cout << *game;	
 		
 	}
+	delete game;
 }
 

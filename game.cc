@@ -5,20 +5,20 @@
 #include "randomblock.h"
 using namespace std;
 
-Game::Game(const int& level, bool GUI)
+Game::Game(const int& level, const int& seed, bool GUI)
 :score(0),level(level),highScore(0),initLevel(level),GUI(GUI){
 	blocks = new vector<Block *>;
 	board = new Board(18,10,3,0,GUI);
-	randBlock = new RandomBlock(board, level);
+	randBlock = new RandomBlock(board, level, seed);
 	blocks->push_back(randBlock->getBlock());
 	blocks->push_back(randBlock->getBlock());
 }
 
-Game::Game(const string& fileName, const int& level, bool GUI)
+Game::Game(const string& fileName, const int& level, const int& seed, bool GUI)
 :score(0),level(level),highScore(0),initLevel(level),GUI(GUI){
 	blocks = new vector<Block *>;
 	board = new Board(18,10,3,0,GUI);
-	randBlock = new RandomBlock(board, fileName,level);
+	randBlock = new RandomBlock(board, fileName, level, seed);
 	blocks->push_back(randBlock->getBlock());
 	blocks->push_back(randBlock->getBlock());
 }

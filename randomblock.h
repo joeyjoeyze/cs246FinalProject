@@ -23,8 +23,8 @@ class RandomBlock{
 	void initBlock();
 	void initFile();
 	public:
-	RandomBlock(Board* board, const int& level=0);
-	RandomBlock(Board* board, const std::string& levelZero, const int& level=0);
+	RandomBlock(Board* board, const int& level=0, const int& seed=1);
+	RandomBlock(Board* board, const std::string& levelZero, const int& level=0, const int& seed=1);
 	~RandomBlock();
 	void setLevel(const int&);
 	void levelUp();

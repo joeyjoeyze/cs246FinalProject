@@ -18,8 +18,8 @@ class Game{
 	RandomBlock * randBlock;
 	Board * board;						//the board object that holds the game matrix
   public:
-	Game(const int& level=0, bool GUI=true);
-	Game(const std::string& fileName, const int& level=0, bool GUI=true);
+	Game(const int& level=0, const int& seed=1, bool GUI=true);
+	Game(const std::string& fileName, const int& level=0, const int& seed=1, bool GUI=true);
 	~Game();
 	void updateScore(const int&);		//called when a row is cancelled, could implement without parameter
 	void command(const std::string&);	//finds and calls the command from main in block, return value determines to spawn a new block or not

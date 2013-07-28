@@ -5,7 +5,6 @@ Board::Board(const int& row, const int& column, const int& xStart, const int& yS
 :xStartPos(xStart),yStartPos(yStart),column(column),row(row),GUI(GUI){
 	gameBoard = new Cell * [row];
 	for(int i=0;i<row;i++){
-	cout << "board row loop:" << i << endl;
 		gameBoard[i] = new Cell[column];
 	}
 	if(GUI){
