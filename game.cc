@@ -14,6 +14,7 @@ Game::Game(const int& level, const int& seed, bool GUI)
 	(blocks->at(0))->activate(board);
 	blocks->push_back(randBlock->getBlock());
 	board->XwindowUpdate(blocks->at(1)->getOutput(), blocks->at(1)->getColour());
+	board->XwindowUpdate(level, score, highScore);
 }
 
 Game::Game(const string& fileName, const int& level, const int& seed, bool GUI)
@@ -25,6 +26,7 @@ Game::Game(const string& fileName, const int& level, const int& seed, bool GUI)
 	(blocks->at(0))->activate(board);
 	blocks->push_back(randBlock->getBlock());
 	board->XwindowUpdate(blocks->at(1)->getOutput(), blocks->at(1)->getColour());
+	board->XwindowUpdate(level, score, highScore);
 }
 
 Game::~Game(){
