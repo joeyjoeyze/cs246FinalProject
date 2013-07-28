@@ -93,7 +93,7 @@ ostream& operator<<(ostream& out, const Game& g){
 	out << "Score:" << setw(spacing + 3) << g.score << endl;
 	out << "Hi Score:" << setw(spacing) << g.highScore << endl;
 	out << "----------" << endl;
-	out << *(g.board) << endl;
+	out << *(g.board);
 	out << "----------" << endl;
 	out << "Next:" << endl;
 	out << *(g.blocks->at((g.blocks->size() - 1))) << endl;
