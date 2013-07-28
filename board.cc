@@ -6,9 +6,12 @@ Board::Board(const int& row, const int& column, const int& xStart, const int& yS
 	gameBoard = new Cell * [row];
 	for(int i=0;i<row;i++){
 		gameBoard[i] = new Cell[column];
+		for (int j=0; j<column, j++)
+            gameBoard[i][j].setCoords(i,j);
 	}
 	if(GUI){
-		window = new Xwindow(column*cellSize, 50+(3+row)*cellSize);  //100 for score, 3 for next block
+		window = new Xwindow(column*cellSize, 50+(3+row)*cellSize);  //50 for score, 3 for next block
+		window->fillRectangle(0,0, column*cellSize, 50+(3+row)*cellSize);
 	}else {
 		window = NULL;
 	}
