@@ -15,7 +15,7 @@ class RandomBlock{
 	int level;
 	int totalBlock;
 	int totalLevel;
-	Block * oBlocks;	//original blocks
+	Block * origBlocks;	//original blocks
 	std::string * inFileName;
 	int * probBlock;
 	void initBlock();
