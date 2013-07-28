@@ -1,6 +1,7 @@
 #ifndef __BLOCK_H__
 #define __BLOCK_H__
 #include "cell.h"
+#include <string>
 
 static const int tetris = 4;
 class Block {
@@ -8,9 +9,10 @@ class Block {
 	Cell * parts[tetris];			//the four parts of a tetric block
 	int colour;				//colour of the blocks
 	int alive;				//count of number of alive cells; starts at 4
-								//need some transformation parameters
+	std::string output;
+	void initCells();
 public:
-	Block(char type=0, int colour=0, Cell *parts[]=0); //non-virtual ctor & dtor
+	Block(const char& type=0, const int& colour=0, const std::string& str=0); //non-virtual ctor & dtor
 	~Block();
     void rotate(Board* board, const bool&);	//parameter determines clockwise or counterclockwise rotation
 	void shift(Board* board, const int&);	//paramenter indicates which direction of motion
