@@ -13,6 +13,7 @@ Game::Game(const int& level, const int& seed, bool GUI)
 	blocks->push_back(randBlock->getBlock());
 	(blocks->at(0))->activate(board);
 	blocks->push_back(randBlock->getBlock());
+	board->XwindowUpdate(blocks->at(1)->getOutput(), blocks->at(1)->getColour());
 }
 
 Game::Game(const string& fileName, const int& level, const int& seed, bool GUI)
@@ -21,7 +22,9 @@ Game::Game(const string& fileName, const int& level, const int& seed, bool GUI)
 	board = new Board(15,10,3,0,GUI);
 	randBlock = new RandomBlock(board, fileName, level, seed);
 	blocks->push_back(randBlock->getBlock());
+	(blocks->at(0))->activate(board);
 	blocks->push_back(randBlock->getBlock());
+	board->XwindowUpdate(blocks->at(1)->getOutput(), blocks->at(1)->getColour());
 }
 
 Game::~Game(){
@@ -59,6 +62,7 @@ void Game::command(const string& cmd){	//finds and calls the command from main i
 		}
 		blocks->push_back(randBlock->getBlock());
 		(blocks->at((blocks->size() - 2)))->activate(board);
+		board->XwindowUpdate(blocks->at(blocks->size()-1)->getOutput(), blocks->at(blocks->size()-1)->getColour());
 	}else if(cmd == "levelup"){
 		randBlock->levelUp();
 	}else if(cmd == "leveldown"){
@@ -76,7 +80,9 @@ void Game::command(const string& cmd){	//finds and calls the command from main i
 		}
 		blocks->clear();
 		blocks->push_back(randBlock->getBlock());
+		(blocks->at(0))->activate(board);
 		blocks->push_back(randBlock->getBlock());
+		board->XwindowUpdate(blocks->at(1)->getOutput(), blocks->at(1)->getColour());
 	}else{
 		cerr << "BAD COMMAND" << endl;
 	}
