@@ -7,6 +7,13 @@ Block::Block(const char& type, const int& colour, const string& str, Cell* parts
     for (int i=0; i<tetris; ++i)
         this->parts[i] = parts[i];
 }
+
+Block::Block(const Block& other):
+  type(other.type), colour(other.colour), alive(other.alive), output(other.output){
+    for (int i=0; i<tetris; ++i)
+        parts[i] = other.parts[i];
+}
+
 Block::~Block(){
     delete[] parts;
 }
@@ -119,6 +126,10 @@ void Block::shift(Board* board, const int& direction){
         board->XwindowUpdate(newParts[i]);
         parts[i] = newParts[i];
     }
+}
+
+char Block::getType(){
+    return type;
 }
 
 void Block::notify() {
