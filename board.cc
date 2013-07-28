@@ -68,7 +68,7 @@ void Board::XwindowUpdate(string output, int colour){  //this is for drawing nex
 
 void Board::XwindowUpdate(Cell* c){
 	if (window==0) return;
-    window->fillRectangle(c->getY()*cellSize+1, c->getX()*cellSize+51, cellSize-2, cellSize-2, c->getColour());
+    window->fillRectangle(c->getY()*cellSize+1, c->getX()*cellSize+51, cellSize-1, cellSize-1, c->getColour());
 }						//window update cell
 
 void Board::XwindowUpdate(int level, int score, int highscore){
