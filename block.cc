@@ -1,4 +1,4 @@
-#include "Block.h"
+#include "block.h"
 
 Block::Block(char type, int colour, Cell *parts[]):
   type(type), colour(colour), alive(4){
