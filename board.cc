@@ -48,6 +48,7 @@ Cell * Board::getCell(const int& x, const int& y){
 }
 
 void Board::XwindowUpdate(string output, int colour){  //this is for drawing next block.
+    if (window==0) return;
     window->fillRectangle(0,50+row*cellSize,column*cellSize, 3*cellSize);
 
     int x = 3 * cellSize;
