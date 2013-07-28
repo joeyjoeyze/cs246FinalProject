@@ -14,7 +14,7 @@ class Game{
 	int highScore;						//current high score
 	int initLevel;						//initial level stated on the command line if non-zero
 	bool GUI;
-	std::vector<Block *> blocks;		//the vector of blocks
+	std::vector<Block *> * blocks;		//the vector of blocks
 	RandomBlock * randBlock;
 	Board * board;						//the board object that holds the game matrix
   public:
