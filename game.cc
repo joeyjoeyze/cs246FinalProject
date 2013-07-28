@@ -7,13 +7,13 @@ using namespace std;
 
 Game::Game(const int& level, bool GUI)
 :score(0),level(level),highScore(0),initLevel(level),GUI(GUI){
-	board = new Board;
+	board = new Board(18,10,3,0,GUI);
 	randBlock = new RandomBlock(board, level);
 }
 
 Game::Game(const string& fileName, const int& level, bool GUI)
 :score(0),level(level),highScore(0),initLevel(level),GUI(GUI){
-	board = new Board;
+	board = new Board(18,10,3,0,GUI);
 	randBlock = new RandomBlock(board, fileName,level);
 }
 

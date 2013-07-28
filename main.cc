@@ -6,7 +6,7 @@ using namespace std;
 int main(int argc, char * argv[]){
 	string temp;
 	string commands[10] = {"clockwise", "counterclockwise", "down", "drop", "left", "leveldown", "levelup", "restart", "right"};
-	Game game;
+	Game game(1,false);
 	//commands array
 	while(cin>>temp){						//read loop
 	
