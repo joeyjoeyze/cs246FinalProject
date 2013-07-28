@@ -6,12 +6,13 @@ Board::Board(const int& row, const int& column, const int& xStart, const int& yS
 	gameBoard = new Cell * [row];
 	for(int i=0;i<row;i++){
 		gameBoard[i] = new Cell[column];
-		for (int j=0; j<column, j++)
+		for (int j=0; j<column; j++)
             gameBoard[i][j].setCoords(i,j);
 	}
 	if(GUI){
 		window = new Xwindow(column*cellSize, 50+(3+row)*cellSize);  //50 for score, 3 for next block
 		window->fillRectangle(0,0, column*cellSize, 50+(3+row)*cellSize);
+
 	}else {
 		window = NULL;
 	}
@@ -44,6 +45,24 @@ Cell * Board::getCell(const int& x, const int& y){
 	if (x < 0 || x >= row) return 0;
 	if (y < 0 || y >= column) return 0;
 	return &(gameBoard[x][y]);
+}
+
+void Board::XwindowUpdate(string output, int colour){  //this is for drawing next block.
+    window->fillRectangle(0,50+row*cellSize,column*cellSize, 3*cellSize);
+
+    int x = 3 * cellSize;
+    int y = 50 + cellSize*row + cellSize/2;
+
+    window->drawString(5, y+cellSize, "Next block:", 0);
+
+    for (int i=0; i<output.length(); ++i){
+        if (output[i]=='\n'){
+            x = 2 * cellSize;
+            y += cellSize;
+        } else if (output[i]!=' ')
+            window->fillRectangle(x+1,y+1,cellSize-1, cellSize-1, colour);
+        x += cellSize;
+    }
 }
 
 void Board::XwindowUpdate(Cell* c){
