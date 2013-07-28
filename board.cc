@@ -44,10 +44,12 @@ Cell * Board::getCell(const int& x, const int& y){
 }
 
 void Board::XwindowUpdate(Cell* c){
+	if (window==0) return;
     window->fillRectangle(c->getY()*cellSize+1, c->getX()*cellSize+51, cellSize-2, cellSize-2, c->getColour());
 }						//window update cell
 
 void Board::XwindowUpdate(int level, int score, int highscore){
+	if (window==0) return;
     window->fillRectangle(0, 0, column*cellSize, 50, 1);
     stringstream ss;
     ss << "Level:       " << level;
