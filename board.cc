@@ -70,6 +70,7 @@ ostream& operator<<(ostream& out, const Board& b){
 		for(int j=0;j<b.column;j++){
 			out << b.gameBoard[i][j];
 		}
+		out << endl;
 	}
 	return out;
 }
