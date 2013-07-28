@@ -124,6 +124,7 @@ Block * RandomBlock::getBlock(){
 		for(int i=0;i<totalBlock;i++){
 			if(temp == origBlocks[i]->getType()){
 				ret = new Block(*origBlocks[i]);
+				ret->activate();
 				return ret;
 			}
 		}	
@@ -133,6 +134,7 @@ Block * RandomBlock::getBlock(){
 			random = random - probBlock[i];
 			if(random <= 0){
 				ret = new Block(*origBlocks[i]);
+				ret->activate();
 				return ret;
 			}
 		}
