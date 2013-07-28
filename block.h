@@ -16,6 +16,7 @@ public:
 	Block(const char& type=0, const int& colour=0, const std::string& str="", Cell* parts[]=0);
 	Block(const Block& other);
 	~Block();
+	void activate();			//notifies the cells it contains of the block's existence
     void rotate(Board* board, const bool&);	//parameter determines clockwise or counterclockwise rotation
 	void shift(Board* board, const int&);	//paramenter indicates which direction of motion
 	char getType();                 //returns type
