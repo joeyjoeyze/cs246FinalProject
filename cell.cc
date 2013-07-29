@@ -5,17 +5,25 @@ Cell::Cell():type(' '),x(0),y(0),colour(1),changed(false),block(NULL){}
 
 Cell::~Cell(){}
 
+void Cell::notify(){
+	if(type == ' '){
+		block->notify();
+		block = NULL;
+		colour = 1;
+	}
+}
+
 void Cell::setCoords(const int& x, const int& y){		//set function for location
 	this->x = x;
 	this->y = y;
 }
 
 void Cell::setType(const char& type){				//changes the cell's letter
-	if(type == ' '){
+	/*if(type == ' '){
 		block->notify();
 		block = NULL;
 		colour = 1;
-	}
+	}*/
 	this->type = type;
 }
 

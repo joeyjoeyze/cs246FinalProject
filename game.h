@@ -23,6 +23,7 @@ class Game{
 	~Game();
 	void updateScore(const int&);		//called when a row is cancelled, could implement without parameter
 	void command(const std::string&);	//finds and calls the command from main in block, return value determines to spawn a new block or not
+	void checkClear();
 	friend std::ostream& operator<<(std::ostream&, const Game&);
 };
 

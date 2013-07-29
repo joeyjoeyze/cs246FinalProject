@@ -1,8 +1,8 @@
 #include "game.h"
-
 #include "block.h"
 #include "board.h"
 #include "randomblock.h"
+#include<cmath>
 using namespace std;
 
 Game::Game(const int& level, const int& seed, bool GUI)
@@ -62,6 +62,7 @@ void Game::command(const string& cmd){	//finds and calls the command from main i
 		for(int i=0;i<15;i++){
 			currentBlock->shift(board, 0);
 		}
+		checkClear();
 		blocks->push_back(randBlock->getBlock());
 		(blocks->at((blocks->size() - 2)))->activate(board);
 		board->XwindowUpdate(blocks->at(blocks->size()-1)->getOutput(), blocks->at(blocks->size()-1)->getColour());
@@ -70,11 +71,10 @@ void Game::command(const string& cmd){	//finds and calls the command from main i
 	}else if(cmd == "leveldown"){
 		randBlock->levelDown();
 	}else if(cmd == "restart"){
-		delete board;
-		board = new Board;
 		score = 0;
 		level = initLevel;
 		highScore = 0;
+		board->reset();
 		randBlock->setLevel(level);
 		for(vector<Block *>::iterator vi=blocks->begin();vi!=blocks->end();++vi){
 		//using iterators to delete all the block pointers in Blocks
@@ -88,6 +88,51 @@ void Game::command(const string& cmd){	//finds and calls the command from main i
 	}else{
 		cerr << "BAD COMMAND" << endl;
 	}
+}
+void Game::checkClear(){
+	int linesCleared = 0;
+	int blockScore = 0;
+	int score = 0;
+	bool rowFilled = false;
+	Cell * temp;
+	for(int i=(board->getRow()-1);i>0;i--){
+		rowFilled = true;
+		for(int j=0;j<board->getColumn();j++){
+			rowFilled = rowFilled && ((board->getCell(i,j))->getType() != ' ');
+		}
+		if(rowFilled){
+			for(int j=0;j<board->getColumn();j++){
+				(board->getCell(i,j))->setType(' ');
+				(board->getCell(i,j))->notify();
+				//doing so notifies the corresponding block 
+				linesCleared++;
+			}
+			
+			for(int k=i;k>0;k--){
+			//moves all the blocks down
+			//draws the top one before the bottom one
+				for(int j=0;j<board->getColumn();j++){
+						temp = board->getCell(k,j);
+						board->setCell(board->getCell(k-1,j), k, j);
+						board->setCell(temp, k-1, j);
+						(board->getCell(k,j))->setCoords(k,j);
+						(board->getCell(k-1,j))->setCoords(k-1,j);
+						board->XwindowUpdate(board->getCell(k-1,j));
+						board->XwindowUpdate(board->getCell(k,j));
+				}
+			}
+		}
+	}
+	for(vector<Block *>::iterator vi=blocks->begin();vi!=blocks->end();vi++){
+		if((*vi)->getStatus() == 0){
+			
+			blockScore = blockScore + pow(((*vi)->getLevel() + 1), 2);
+			delete *vi;
+			vi = blocks->erase(vi);
+		}
+	}
+	score = pow((linesCleared + level), 2) + blockScore;
+	updateScore(score);
 }
 
 ostream& operator<<(ostream& out, const Game& g){

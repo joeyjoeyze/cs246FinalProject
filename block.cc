@@ -179,6 +179,18 @@ int Block::getColour(){
     return colour;
 }
 
+int Block::getStatus(){
+	return alive;
+}
+
+int Block::getLevel(){
+	return level;
+}	
+
+void Block::setLevel(const int& level){
+	this->level = level;
+}
+
 void Block::notify() {
     alive--;
 }

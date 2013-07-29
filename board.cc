@@ -3,11 +3,13 @@ using namespace std;
 
 Board::Board(const int& row, const int& column, const int& xStart, const int& yStart, bool GUI)
 :xStartPos(xStart),yStartPos(yStart),column(column),row(row),GUI(GUI){
-	gameBoard = new Cell * [row];
+	gameBoard = new Cell ** [row];
 	for(int i=0;i<row;i++){
-		gameBoard[i] = new Cell[column];
-		for (int j=0; j<column; j++)
-            gameBoard[i][j].setCoords(i,j);
+		gameBoard[i] = new Cell * [column];
+		for (int j=0; j<column; j++){
+			gameBoard[i][j] = new Cell();
+            (gameBoard[i][j])->setCoords(i,j);
+		}
 	}
 	if(GUI){
 		window = new Xwindow(column*cellSize, 50+(3+row)*cellSize);  //50 for score, 3 for next block
@@ -20,7 +22,10 @@ Board::Board(const int& row, const int& column, const int& xStart, const int& yS
 
 Board::~Board(){
 	for(int i=0;i<row;i++){
-		delete [] gameBoard[row];
+		for(int j=0;j<column;j++){
+			delete gameBoard[i][j];
+		}
+		delete [] gameBoard[i];
 	}
 	delete [] gameBoard;
 	delete window;
@@ -30,21 +35,33 @@ bool Board::isEmpty(const int&x , const int&y){
 //returns if the location is empty, false if it reaches an edge
 	if(x < 0 || x >= row) return false;
 	if(y < 0 || y >= column) return false;
-	if(gameBoard[x][y].getType() == ' ') return true;
+	if(gameBoard[x][y]->getType() == ' ') return true;
 	return false;
 }
 
 void Board::moveCell(const int& xFrom, const int& yFrom, const int& xDest, const int& yDest){
 //moves the cell, empties the original cell, invoked by the Block class
 //ensures that the 2 set of coordinates is valid
-	if(gameBoard[xDest][yDest].getType() != ' ') return;
-	gameBoard[xDest][yDest].setType(gameBoard[xFrom][yFrom].getType());
+	if(gameBoard[xDest][yDest]->getType() != ' ') return;
+	gameBoard[xDest][yDest]->setType(gameBoard[xFrom][yFrom]->getType());
+}
+
+void Board::reset(){
+	for(int i=0;i<row;i++){
+		for(int j =0;j<column;j++){
+			gameBoard[i][j]->setType(' ');
+		}
+	}
 }
 
 Cell * Board::getCell(const int& x, const int& y){
 	if (x < 0 || x >= row) return 0;
 	if (y < 0 || y >= column) return 0;
-	return &(gameBoard[x][y]);
+	return gameBoard[x][y];
+}
+
+void Board::setCell(Cell * that, const int&x ,const int& y){
+	gameBoard[x][y] = that;
 }
 
 void Board::XwindowUpdate(string output, int colour){  //this is for drawing next block.
@@ -56,7 +73,7 @@ void Board::XwindowUpdate(string output, int colour){  //this is for drawing nex
 
     window->drawString(5, y+cellSize, "Next block:", 0);
 
-    for (int i=0; i<output.length(); ++i){
+    for (unsigned int i=0; i<output.length(); ++i){
         if (output[i]=='\n'){
             x = 2 * cellSize;
             y += cellSize;
@@ -87,10 +104,18 @@ void Board::XwindowUpdate(int level, int score, int highscore){
     window->drawString(50, 30, ss.str(), 0);
 }                       //window update text
 
+int Board::getRow(){
+	return row;
+}
+
+int Board::getColumn(){
+	return column;
+}
+	
 ostream& operator<<(ostream& out, const Board& b){
 	for(int i=0;i<b.row;i++){
 		for(int j=0;j<b.column;j++){
-			out << b.gameBoard[i][j];
+			out << *(b.gameBoard[i][j]);
 		}
 		out << endl;
 	}
