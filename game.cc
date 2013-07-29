@@ -103,11 +103,11 @@ void Game::checkClear(){
 		if(rowFilled){
 			for(int j=0;j<board->getColumn();j++){
 				(board->getCell(i,j))->setType(' ');
-				(board->getCell(i,j))->notify();
-				//doing so notifies the corresponding block 
+				(board->getCell(i,j))->notifyBlock();
+				//doing so notifies the corresponding block
 				linesCleared++;
 			}
-			
+
 			for(int k=i;k>0;k--){
 			//moves all the blocks down
 			//draws the top one before the bottom one
@@ -125,7 +125,7 @@ void Game::checkClear(){
 	}
 	for(vector<Block *>::iterator vi=blocks->begin();vi!=blocks->end();vi++){
 		if((*vi)->getStatus() == 0){
-			
+
 			blockScore = blockScore + pow(((*vi)->getLevel() + 1), 2);
 			delete *vi;
 			vi = blocks->erase(vi);
