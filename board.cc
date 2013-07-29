@@ -39,13 +39,6 @@ bool Board::isEmpty(const int&x , const int&y){
 	return false;
 }
 
-void Board::moveCell(const int& xFrom, const int& yFrom, const int& xDest, const int& yDest){
-//moves the cell, empties the original cell, invoked by the Block class
-//ensures that the 2 set of coordinates is valid
-	if(gameBoard[xDest][yDest]->getType() != ' ') return;
-	gameBoard[xDest][yDest]->setType(gameBoard[xFrom][yFrom]->getType());
-}
-
 void Board::reset(){
 	for(int i=0;i<row;i++){
 		for(int j =0;j<column;j++){
