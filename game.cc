@@ -44,6 +44,7 @@ Game::~Game(){
 void Game::updateScore(const int& newScore){	//called when a row is cancelled, could implement without parameter
 	if(newScore > highScore) highScore = newScore;
 	score = newScore;
+	board->XwindowUpdate(level, score, highScore);
 }
 
 void Game::command(const string& cmd){	//finds and calls the command from main in block, return value determines to spawn a new block or not
@@ -79,10 +80,12 @@ void Game::command(const string& cmd){	//finds and calls the command from main i
 	}else if(cmd == "leveldown"){
 		randBlock->levelDown();
 	}else if(cmd == "restart"){
+	    gameOver = false;
 		score = 0;
 		level = initLevel;
 		highScore = 0;
 		board->reset();
+		board->XwindowUpdate(level, score, highScore);
 		randBlock->setLevel(level);
 		for(vector<Block *>::iterator vi=blocks->begin();vi!=blocks->end();++vi){
 		//using iterators to delete all the block pointers in Blocks
