@@ -18,9 +18,6 @@ class Board{
 	Board(const int& row=0, const int& column=0, const int& xStart=3, const int& yStart=0, bool GUI=true);
 	~Board();
 	bool isEmpty(const int&x , const int&y);	//returns if the location is empty, false if it reaches an edge
-	void moveCell(const int& xFrom, const int& yFrom, const int& xDest, const int& yDest);
-	//moves the cell, empties the original cell, invoked by the Block class
-	//returns false if the destination cell is occupied
 	void reset();
 	Cell * getCell(const int& x, const int&y);
 	void setCell(Cell *, const int&,const int&);
