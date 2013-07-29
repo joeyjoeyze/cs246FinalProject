@@ -129,7 +129,6 @@ Block * RandomBlock::getBlock(){
 				bool available = true;
 				for(int j=0;j<4;j++){
 					available = available && (((origBlocks[i])->getPart(j))->getType() == ' ');
-					cerr << "type:" << ((origBlocks[i])->getPart(j))->getType()  << endl;
 				}
 				if(available){
 					Block * ret = new Block(*origBlocks[i]);
@@ -139,7 +138,7 @@ Block * RandomBlock::getBlock(){
 					return NULL;
 				}
 			}
-		}	
+		}
 	}else{
 		int random = (rand() % (sum - 1)) + 1;
 		for(int i=0;i<totalBlock;i++){
