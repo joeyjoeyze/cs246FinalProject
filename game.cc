@@ -83,7 +83,6 @@ void Game::command(const string& cmd){	//finds and calls the command from main i
 	    gameOver = false;
 		score = 0;
 		level = initLevel;
-		highScore = 0;
 		board->reset();
 		board->XwindowUpdate(level, score, highScore);
 		randBlock->setLevel(level);
