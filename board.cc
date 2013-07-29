@@ -45,6 +45,10 @@ void Board::reset(){
 			gameBoard[i][j]->setType(empty);
 		}
 	}
+	if (GUI){
+        window->fillRectangle(0,0, column*cellSize, 50+(3+row)*cellSize);
+	}
+
 }
 
 void Board::findTop(){
@@ -70,20 +74,28 @@ void Board::setCell(Cell * that, const int&x ,const int& y){
 
 void Board::XwindowUpdate(string output, int colour){  //this is for drawing next block.
     if (window==0) return;
-    window->fillRectangle(0,50+row*cellSize,column*cellSize, 3*cellSize);
 
-    int x = 3 * cellSize;
-    int y = 50 + cellSize*row + cellSize/2;
+    if (output == "Game Over"){
+        window->fillRectangle(0,0,column*cellSize, 50+(3+row)*cellSize);
+        window->drawString((column/2+1)*cellSize, 50 + row * cellSize, output, 0);
+    }
 
-    window->drawString(5, y+cellSize, "Next block:", 0);
+    else{
+        window->fillRectangle(0,50+row*cellSize,column*cellSize, 3*cellSize);
 
-    for (unsigned int i=0; i<output.length(); ++i){
-        if (output[i]=='\n'){
-            x = 2 * cellSize;
-            y += cellSize;
-        } else if (output[i]!=' ')
-            window->fillRectangle(x+1,y+1,cellSize-1, cellSize-1, colour);
-        x += cellSize;
+        int x = 3 * cellSize;
+        int y = 50 + cellSize*row + cellSize/2;
+
+        window->drawString(5, y+cellSize, "Next block:", 0);
+
+        for (unsigned int i=0; i<output.length(); ++i){
+            if (output[i]=='\n'){
+                x = 2 * cellSize;
+                y += cellSize;
+            } else if (output[i]!=' ')
+                window->fillRectangle(x+1,y+1,cellSize-1, cellSize-1, colour);
+            x += cellSize;
+        }
     }
 }
 
@@ -119,7 +131,7 @@ int Board::getColumn(){
 int Board::getTop(){
 	return top;
 }
-	
+
 ostream& operator<<(ostream& out, const Board& b){
 	for(int i=0;i<b.row;i++){
 		for(int j=0;j<b.column;j++){
