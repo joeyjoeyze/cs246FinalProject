@@ -4,10 +4,8 @@ using namespace std;
 
 Block::Block(const char& type, const int& colour, const string& str, Cell* parts[]):
   type(type), colour(colour), alive(4), level(0), output(str){
-  //cerr << "type:" << type << endl;
 	for (int i=0; i<tetris && parts; ++i){
         this->parts[i] = parts[i];
-		//parts[i]->setBlock(this);
 	}
 }
 
@@ -15,7 +13,6 @@ Block::Block(const Block& other):
   type(other.type), colour(other.colour), alive(other.alive), level(0), output(other.output){
     for (int i=0; i<tetris; ++i){
         parts[i] = other.parts[i];
-		//parts[i]->setBlock(this);
 	}
 }
 Block Block::operator=(const Block& other){
@@ -189,7 +186,7 @@ int Block::getStatus(){
 
 int Block::getLevel(){
 	return level;
-}	
+}
 
 Cell* Block::getPart(const int& index){
 	return parts[index];
