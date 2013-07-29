@@ -5,12 +5,8 @@ Cell::Cell():type(' '),x(0),y(0),colour(1),changed(false),block(NULL){}
 
 Cell::~Cell(){}
 
-void Cell::notify(){
-	if(type == ' '){
-		block->notify();
-		block = NULL;
-		colour = 1;
-	}
+void Cell::notifyBlock(){
+	block->notify();
 }
 
 void Cell::setCoords(const int& x, const int& y){		//set function for location
@@ -19,11 +15,10 @@ void Cell::setCoords(const int& x, const int& y){		//set function for location
 }
 
 void Cell::setType(const char& type){				//changes the cell's letter
-	/*if(type == ' '){
-		block->notify();
+	if(type == ' '){
 		block = NULL;
 		colour = 1;
-	}*/
+	}
 	this->type = type;
 }
 
@@ -48,7 +43,7 @@ int Cell::getY(){
 int Cell::getColour(){
 	return colour;
 }
-	
+
 std::ostream& operator<<(std::ostream& out, const Cell& c){
 	out << c.type;
 	return out;
