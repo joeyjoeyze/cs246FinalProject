@@ -6,27 +6,27 @@
 using namespace std;
 
 Game::Game(const int& level, const int& seed, bool GUI)
-:score(0),level(level),highScore(0),initLevel(level),GUI(GUI){
+:gameOver(false),score(0),level(level),highScore(0),initLevel(level),GUI(GUI){
 	blocks = new vector<Block *>;
 	board = new Board(15,10,3,0,GUI);
 	randBlock = new RandomBlock(board, level, seed);
 	blocks->push_back(randBlock->getBlock());
-	(blocks->at(0))->activate(board);
 	blocks->push_back(randBlock->getBlock());
 	board->XwindowUpdate(blocks->at(1)->getOutput(), blocks->at(1)->getColour());
 	board->XwindowUpdate(level, score, highScore);
+	(blocks->at(0))->activate(board);
 }
 
 Game::Game(const string& fileName, const int& level, const int& seed, bool GUI)
-:score(0),level(level),highScore(0),initLevel(level),GUI(GUI){
+:gameOver(false),score(0),level(level),highScore(0),initLevel(level),GUI(GUI){
 	blocks = new vector<Block *>;
 	board = new Board(15,10,3,0,GUI);
 	randBlock = new RandomBlock(board, fileName, level, seed);
 	blocks->push_back(randBlock->getBlock());
-	(blocks->at(0))->activate(board);
 	blocks->push_back(randBlock->getBlock());
 	board->XwindowUpdate(blocks->at(1)->getOutput(), blocks->at(1)->getColour());
 	board->XwindowUpdate(level, score, highScore);
+	(blocks->at(0))->activate(board);
 }
 
 Game::~Game(){
@@ -47,6 +47,8 @@ void Game::updateScore(const int& newScore){	//called when a row is cancelled, c
 }
 
 void Game::command(const string& cmd){	//finds and calls the command from main in block, return value determines to spawn a new block or not
+	if(gameOver && cmd != "restart") return;
+	
 	Block * currentBlock = blocks->at((blocks->size() - 2));
 	if(cmd == "left"){
 		currentBlock->shift(board, 1);
@@ -63,9 +65,14 @@ void Game::command(const string& cmd){	//finds and calls the command from main i
 			currentBlock->shift(board, 0);
 		}
 		checkClear();
-		blocks->push_back(randBlock->getBlock());
-		(blocks->at((blocks->size() - 2)))->activate(board);
-		board->XwindowUpdate(blocks->at(blocks->size()-1)->getOutput(), blocks->at(blocks->size()-1)->getColour());
+		Block * next = randBlock->getBlock();
+		if(next != NULL){
+			blocks->push_back(next);
+			(blocks->at((blocks->size() - 2)))->activate(board);
+			board->XwindowUpdate(blocks->at(blocks->size()-1)->getOutput(), blocks->at(blocks->size()-1)->getColour());
+		}else{
+			gameOver = true;
+		}
 	}else if(cmd == "levelup"){
 		randBlock->levelUp();
 	}else if(cmd == "leveldown"){
@@ -82,9 +89,9 @@ void Game::command(const string& cmd){	//finds and calls the command from main i
 		}
 		blocks->clear();
 		blocks->push_back(randBlock->getBlock());
-		(blocks->at(0))->activate(board);
 		blocks->push_back(randBlock->getBlock());
 		board->XwindowUpdate(blocks->at(1)->getOutput(), blocks->at(1)->getColour());
+		(blocks->at(0))->activate(board);
 	}else{
 		cerr << "BAD COMMAND" << endl;
 	}
@@ -101,14 +108,15 @@ void Game::checkClear(){
 			rowFilled = rowFilled && ((board->getCell(i,j))->getType() != ' ');
 		}
 		if(rowFilled){
+			linesCleared++;
 			for(int j=0;j<board->getColumn();j++){
-				(board->getCell(i,j))->setType(' ');
 				(board->getCell(i,j))->notifyBlock();
+				(board->getCell(i,j))->setType(' ');
 				//doing so notifies the corresponding block
-				linesCleared++;
+				
 			}
-
-			for(int k=i;k>0;k--){
+			board->findTop();
+			for(int k=i;k>=board->getTop();k--){
 			//moves all the blocks down
 			//draws the top one before the bottom one
 				for(int j=0;j<board->getColumn();j++){
@@ -126,23 +134,32 @@ void Game::checkClear(){
 	for(vector<Block *>::iterator vi=blocks->begin();vi!=blocks->end();vi++){
 		if((*vi)->getStatus() == 0){
 
-			blockScore = blockScore + pow(((*vi)->getLevel() + 1), 2);
+			blockScore = blockScore + (int)pow((((*vi)->getLevel() + 1) * 1.0), 2);
+			//cerr <<"blocklvl: " << (*vi)->getLevel() <<endl;
 			delete *vi;
 			vi = blocks->erase(vi);
 		}
 	}
-	score = pow((linesCleared + level), 2) + blockScore;
+	//cerr << "blockScore: " << blockScore <<endl;
+	//cerr << "linesCleared: " << linesCleared << endl;
+	score = (int)pow(((linesCleared + level)* 1.0), 2) + blockScore;
+	//cerr << "score before update:" << score << endl;
 	updateScore(score);
 }
 
 ostream& operator<<(ostream& out, const Game& g){
-	out << "Level:" << setw(spacing + 3) << g.level << endl;
-	out << "Score:" << setw(spacing + 3) << g.score << endl;
-	out << "Hi Score:" << setw(spacing) << g.highScore << endl;
-	out << "----------" << endl;
-	out << *(g.board);
-	out << "----------" << endl;
-	out << "Next:" << endl;
-	out << *(g.blocks->at((g.blocks->size() - 1))) << endl;
-	return out;
+	if(!g.gameOver){
+		out << "Level:" << setw(spacing + 3) << g.level << endl;
+		out << "Score:" << setw(spacing + 3) << g.score << endl;
+		out << "Hi Score:" << setw(spacing) << g.highScore << endl;
+		out << "----------" << endl;
+		out << *(g.board);
+		out << "----------" << endl;
+		out << "Next:" << endl;
+		out << *(g.blocks->at((g.blocks->size() - 1))) << endl;
+		return out;
+	}else{
+		out << "Game Over" <<endl;
+		return out;
+	}
 }

@@ -22,9 +22,9 @@ RandomBlock::~RandomBlock(){
 	for(int i=0;i<totalBlock;i++){
 		delete origBlocks[i];
 	}
-	delete[] origBlocks;
-	delete inFileName;
-	delete[] probBlock;
+	delete [] origBlocks;
+	delete [] inFileName;
+	delete [] probBlock;
 	if(level == 0) inFile.close();
 }
 
@@ -80,6 +80,7 @@ void RandomBlock::initFile(){
 }
 
 void RandomBlock::setLevel(const int& level){
+	if(level == 0) inFile.close();				//close the file opened by level zero
 	this->level = level;
 	if(level == 0){
 		inFile.open(inFileName[0].c_str());
@@ -125,9 +126,18 @@ Block * RandomBlock::getBlock(){
 		inFile >> temp;
 		for(int i=0;i<totalBlock;i++){
 			if(temp == origBlocks[i]->getType()){
-				Block * ret = new Block(*origBlocks[i]);
-				ret->setLevel(level);
-				return ret;
+				bool available = true;
+				for(int j=0;j<4;j++){
+					available = available && (((origBlocks[i])->getPart(j))->getType() == ' ');
+					cerr << "type:" << ((origBlocks[i])->getPart(j))->getType()  << endl;
+				}
+				if(available){
+					Block * ret = new Block(*origBlocks[i]);
+					ret->setLevel(level);
+					return ret;
+				}else {
+					return NULL;
+				}
 			}
 		}	
 	}else{
@@ -135,9 +145,17 @@ Block * RandomBlock::getBlock(){
 		for(int i=0;i<totalBlock;i++){
 			random = random - probBlock[i];
 			if(random <= 0){
-				Block * ret = new Block(*origBlocks[i]);
-				ret->setLevel(level);
-				return ret;
+				bool available = true;
+				for(int j=0;j<4;j++){
+					available = available && (((origBlocks[i])->getPart(j))->getType() == ' ');
+				}
+				if(available){
+					Block * ret = new Block(*origBlocks[i]);
+					ret->setLevel(level);
+					return ret;
+				}else{
+					return NULL;
+				}
 			}
 		}
 	}

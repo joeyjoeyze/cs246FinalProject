@@ -2,7 +2,7 @@
 using namespace std;
 
 Board::Board(const int& row, const int& column, const int& xStart, const int& yStart, bool GUI)
-:xStartPos(xStart),yStartPos(yStart),column(column),row(row),GUI(GUI){
+:xStartPos(xStart),yStartPos(yStart),column(column),row(row),top(row-1),GUI(GUI){
 	gameBoard = new Cell ** [row];
 	for(int i=0;i<row;i++){
 		gameBoard[i] = new Cell * [column];
@@ -35,14 +35,25 @@ bool Board::isEmpty(const int&x , const int&y){
 //returns if the location is empty, false if it reaches an edge
 	if(x < 0 || x >= row) return false;
 	if(y < 0 || y >= column) return false;
-	if(gameBoard[x][y]->getType() == ' ') return true;
+	if(gameBoard[x][y]->getType() == empty) return true;
 	return false;
 }
 
 void Board::reset(){
 	for(int i=0;i<row;i++){
 		for(int j =0;j<column;j++){
-			gameBoard[i][j]->setType(' ');
+			gameBoard[i][j]->setType(empty);
+		}
+	}
+}
+
+void Board::findTop(){
+	for(int i=0;i<row;i++){
+		for(int j=0;j<column;j++){
+			if(gameBoard[i][j]->getType() != empty){
+				top = i;
+				return;
+			}
 		}
 	}
 }
@@ -103,6 +114,10 @@ int Board::getRow(){
 
 int Board::getColumn(){
 	return column;
+}
+
+int Board::getTop(){
+	return top;
 }
 	
 ostream& operator<<(ostream& out, const Board& b){

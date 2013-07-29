@@ -9,6 +9,7 @@ class Block;
 class Board;
 static const int spacing = 4;			//padding spacing to right align text
 class Game{
+	bool gameOver;
 	int score;							//score of the current game, implement this in player for multiplayer
 	int level;							//the current level of the game;
 	int highScore;						//current high score

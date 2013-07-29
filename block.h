@@ -27,6 +27,7 @@ public:
 	int getColour();                    	//returns colour
 	int getStatus();						//retrns how many alive cells
 	int getLevel();							//returns the level where the block was initialized
+	Cell* getPart(const int&);
 	void setLevel(const int&);				//sets the level
 	void notify();							//notifies the board
 	friend std::ostream& operator<<(std::ostream&, const Block&);
