@@ -14,7 +14,7 @@ class Cell{
 public:
 	Cell();
 	~Cell();
-	void notify();
+	void notifyBlock();
     void setCoords(const int&, const int&);		//set function for location
 	void setType(const char&);					//changes the cell's letter
 	void setBlock(Block *);						//sets the block of cell
