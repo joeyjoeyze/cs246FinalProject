@@ -48,7 +48,7 @@ void Game::updateScore(const int& newScore){	//called when a row is cancelled, c
 
 void Game::command(const string& cmd){	//finds and calls the command from main in block, return value determines to spawn a new block or not
 	if(gameOver && cmd != "restart") return;
-	
+
 	Block * currentBlock = blocks->at((blocks->size() - 2));
 	if(cmd == "left"){
 		currentBlock->shift(board, 1);
@@ -72,6 +72,7 @@ void Game::command(const string& cmd){	//finds and calls the command from main i
 			board->XwindowUpdate(blocks->at(blocks->size()-1)->getOutput(), blocks->at(blocks->size()-1)->getColour());
 		}else{
 			gameOver = true;
+            board->XwindowUpdate("Game Over", 1);
 		}
 	}else if(cmd == "levelup"){
 		randBlock->levelUp();
@@ -113,7 +114,7 @@ void Game::checkClear(){
 				(board->getCell(i,j))->notifyBlock();
 				(board->getCell(i,j))->setType(' ');
 				//doing so notifies the corresponding block
-				
+
 			}
 			board->findTop();
 			for(int k=i;k>=board->getTop();k--){
