@@ -138,15 +138,11 @@ void Game::checkClear(){
 		if((*vi)->getStatus() == 0){
 
 			blockScore = blockScore + (int)pow((((*vi)->getLevel() + 1) * 1.0), 2);
-			//cerr <<"blocklvl: " << (*vi)->getLevel() <<endl;
 			delete *vi;
 			vi = blocks->erase(vi);
 		}
 	}
-	//cerr << "blockScore: " << blockScore <<endl;
-	//cerr << "linesCleared: " << linesCleared << endl;
 	score = (int)pow(((linesCleared + level)* 1.0), 2) + blockScore;
-	//cerr << "score before update:" << score << endl;
 	updateScore(score);
 }
 
