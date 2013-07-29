@@ -76,9 +76,11 @@ void Game::command(const string& cmd){	//finds and calls the command from main i
             board->XwindowUpdate("Game Over", 1);
 		}
 	}else if(cmd == "levelup"){
-		randBlock->levelUp();
+	    level = randBlock->levelUp();
+	    board->XwindowUpdate(level, score, highScore);
 	}else if(cmd == "leveldown"){
-		randBlock->levelDown();
+	    level = randBlock->levelDown();
+	    board->XwindowUpdate(level, score, highScore);
 	}else if(cmd == "restart"){
 	    gameOver = false;
 		score = 0;
