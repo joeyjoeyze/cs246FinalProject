@@ -129,6 +129,7 @@ int main(int argc, char * argv[]){
 		if(inputCmd == "restart"){
 		//edge case where multiplier does not matter
 			game->command(inputCmd);
+			cout << *game;
 			continue;
 		}
 		
