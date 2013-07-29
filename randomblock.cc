@@ -101,19 +101,23 @@ void RandomBlock::setLevel(const int& level){
 	}
 }
 
-void RandomBlock::levelUp(){
-	if(level >= (totalLevel - 1)) return;
-	if(level == 0){
-		inFile.close();
+int RandomBlock::levelUp(){
+	if(level >= (totalLevel - 1)){}
+	else{
+        if(level == 0) inFile.close();
+        level++;
+        setLevel(level);
 	}
-	level++;
-	setLevel(level);
+	return level;
 }
 
-void RandomBlock::levelDown(){
-	if(level <= 0) return;
-	level--;
-	setLevel(level);
+int RandomBlock::levelDown(){
+	if(level <= 0) {}
+	else {
+        level--;
+        setLevel(level);
+	}
+	return level;
 }
 
 Block * RandomBlock::getBlock(){
