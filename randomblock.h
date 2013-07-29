@@ -27,8 +27,8 @@ class RandomBlock{
 	RandomBlock(Board* board, const std::string& levelZero, const int& level=0, const int& seed=1);
 	~RandomBlock();
 	void setLevel(const int&);
-	void levelUp();
-	void levelDown();
+	int levelUp();
+	int levelDown();
 	Block * getBlock();
 };
 
