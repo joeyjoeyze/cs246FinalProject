@@ -131,6 +131,7 @@ int main(int argc, char * argv[]){
 			if(commands[i].substr(0,inputCmd.length()) == inputCmd){
 				if(((i+1) < 10) && (commands[i+1].substr(0,inputCmd.length()) != inputCmd)){
 					cmd = i;
+					break;
 				}
 			}
 		}
