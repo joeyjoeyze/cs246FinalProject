@@ -43,8 +43,8 @@ Game::~Game(){
 
 void Game::updateScore(const int& newScore){	//called when a row is cancelled, could implement without parameter
 	//if(newScore > highScore) highScore = newScore;
-	score = newScore + newScore;
-	if(score > highScore) highsScore = score;
+	score = score + newScore;
+	if(score > highScore) highScore = score;
 	board->XwindowUpdate(level, score, highScore);
 }
 
