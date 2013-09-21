@@ -3,7 +3,7 @@ cs246FinalProject
 
 Overview
 ========
-This is an implementation of Quadris in C++ written under the ubuntu gcc environment.
+This is an implementation of Quadris in C++ written under the ubuntu gcc environment. </ br>
 The game of Quadris is simply Tetris but with letters as blocks.
 
 Features
