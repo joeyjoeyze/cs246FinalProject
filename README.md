@@ -21,7 +21,7 @@ Note: All commands support a functionality that if you write enough of the comma
 Block movement:<br>
 left<br>
 right<br>
-down<br><br>
+down<br>
 clockwise<br>
 counterclockwise<br>
 drop      | this command will stop block movement and spawn next block<br>
